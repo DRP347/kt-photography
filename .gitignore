@@ -31,6 +31,7 @@ pnpm-debug.log*
 # Operating systems and editors
 .DS_Store
 Thumbs.db
+.vercel/
 .vscode/
 .idea/
 
@@ -58,6 +59,7 @@ data/generated/drive-media-source-manifest.json
 reports/*
 !reports/
 !reports/final-production-launch.md
+!reports/post-launch-story-design-backlog.md
 reports/story-contact-sheets/
 reports/mayank-rajeshree-crop-candidates.jpg
 

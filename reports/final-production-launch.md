@@ -1,82 +1,64 @@
 # Final Production Launch Report
 
-Status: `READY FOR OWNER-APPROVED PUSH AND DEPLOY`
+Status: `PRODUCTION BLOCKED — EXACT DNS OWNER ACTION REQUIRED`
 
-Date: 2026-07-21
+Updated: 2026-07-22 01:08 IST
 
-Release workspace: `/private/tmp/kt-photography-production-release-20260721-225709`
+Stable workspace: `/Users/gandu/Projects/kt-photography`
 
-## Summary
-
-The production release tree has been rebuilt in a clean workspace so the original project folder remains undisturbed. The visual repairs, local assets, canonical domain configuration, production build, route smoke tests, Git ignore policy, and release hygiene checks are complete.
-
-External publication is not complete because this Codex session cannot create a new private GitHub repository, and the connected Vercel deployment action was rejected by tenant policy as a high-risk external data transfer. No workaround deployment was attempted.
-
-## Visual Implementation
-
-- Preserved the warm editorial KT Photography visual system and existing local botanical booking assets.
-- Preserved the approved Story gallery repair work, including orientation-aware frames and Mayank & Rajeshree focal/crop corrections.
-- Removed the stale public email target instead of inventing a new address.
-- Kept the canonical production domain fallback as `https://www.ktphotographydaman.com`.
-
-## Release Hygiene
-
-- Release tree staged in a clean local Git repository on branch `main`.
-- Migration-only Drive source manifest is excluded from Git and Vercel upload.
-- Historical reports and CSV inventories are excluded from Git and Vercel upload; only this launch report remains included.
-- Ignored build/cache/dependency output: `node_modules/`, `.next/`, `out/`, `.turbo/`, coverage, QA screenshots, backups, raw archives, and secret/env files.
-- No staged Cloudinary delivery URLs are present. The remaining Cloudinary text is limited to ignored-folder names in `.gitignore` and `.vercelignore`.
-- No staged Google Drive source manifest is present. The remaining Google Drive strings are limited to the local migration script, not runtime rendering.
-
-## Validation
-
-- TypeScript: passed via `npm run typecheck`.
-- Lint script: passed via `npm run lint`.
-- Production build: passed via `npm run build`.
-- Local production route smoke: all checked public routes returned the expected status.
-- 404 route smoke: `/does-not-exist` returned HTTP 404.
-- Runtime responses checked locally include the canonical `https://www.ktphotographydaman.com` URL and do not expose stale local or legacy domain canonicals.
-- Large-file audit: no release source file above 25 MB was found before staging; the largest included hero image is under the threshold.
-- Secret scan: no matches for the checked credential/token/private-key patterns.
-- `npm audit --audit-level=moderate`: reports the known moderate PostCSS advisory through the current Next.js dependency chain, with no available package fix from npm at this time.
+Original validated release source: `/private/tmp/kt-photography-production-release-20260721-225709`
 
 ## GitHub
 
-- Local Git repository: created successfully in the release workspace.
-- Local branch: `main`.
-- Local baseline commit: prepared in this release workspace after final report update.
-- Remote repository creation: not available through the installed GitHub connector tools in this session.
-- Local `gh` CLI: not installed on PATH.
-- Push/release tag: pending owner-approved GitHub remote creation and push access.
+- Repository: `https://github.com/DRP347/kt-photography`
+- Visibility: private
+- Branch: `main`
+- Baseline commit: `3dbc27c chore: establish KT Photography production baseline`
+- Remote baseline hash verified: `3dbc27cbc10237053ca06f129e870f423502daf6`
+- GitHub CLI: not installed; Homebrew is not installed. Repository creation and verification were completed through the authenticated GitHub API and normal Git push without exposing credentials.
+- Git integration in Vercel: attempted by Vercel CLI during project link, but Vercel could not connect the private repository. Direct CLI deployment was used instead.
 
 ## Vercel
 
-- Local production build is ready for Vercel.
-- Vercel connector deployment attempt: rejected by tenant policy as a high-risk external data transfer.
-- Local `vercel` CLI: not installed on PATH.
-- Production deployment URL: pending owner-approved deployment from the GitHub repository or Vercel dashboard/CLI.
+- Account: `xinghdeepak209-6886`
+- Team/project scope: `deepaks-projects-c818d101`
+- Project name: `kt-photography`
+- Project id: `prj_zOqhIuvC798zOakbEHuBuEAqOx2g`
+- Preview deployment: `https://kt-photography-bp1lkhmn5-deepaks-projects-c818d101.vercel.app`
+- Production deployment: `https://kt-photography-ij30m2uow-deepaks-projects-c818d101.vercel.app`
+- Production deployment id: `dpl_FtEWVvQTdD4nQrCLweWNk7ZWMf4T`
+- Production status: Ready
+- SSO deployment protection: disabled for public access
+- Production alias: `https://kt-photography.vercel.app`
 
-## Cloudinary
+## Environment Variables
 
-- Cloudinary MCP/API failures are non-blocking for this release.
-- Current production runtime uses local curated image paths and YouTube thumbnails, not Cloudinary delivery URLs.
-- Cloudinary original deletion or derived cleanup performed in this pass: none.
+Configured variable names:
 
-## Domain
+- `NEXT_PUBLIC_SITE_URL` in Preview
+- `NEXT_PUBLIC_SITE_URL` in Production
 
-- Canonical production URL configured in source fallback: `https://www.ktphotographydaman.com`.
-- Apex domain configured in source metadata: `https://ktphotographydaman.com`.
-- Required production behavior: apex redirects to `www`.
-- DNS/SSL/live redirect verification: pending after Vercel deployment/domain attachment.
+No Cloudinary API secret or other server-side secret was required for launch.
 
-## Route Smoke Test
+## Validation
 
-Local production server on `localhost:3190` returned HTTP 200 for:
+- `npm ci`: passed
+- `npm run typecheck`: passed
+- `npm run lint`: passed
+- `npm run build`: passed
+- `npm run test`: no test script exists in `package.json`
+- `npx vercel@latest build --prod`: passed after `NEXT_PUBLIC_SITE_URL` was changed from sensitive to non-sensitive so it could be read during build
+- Secret scan: no tracked credential/token/private-key pattern matches
+- Large-file audit: no tracked non-build source files over 25 MB found
+- Ignored output confirmed: `node_modules/`, `.next/`, `.vercel/`, real env files, raw archive folders, generated reports/screenshots, and local backups
+
+## Route Verification
+
+Local production server returned expected statuses for:
 
 - `/`
 - `/stories`
-- `/stories/mayank-rajeshree`
-- `/stories/jay-riya`
+- all published Story routes
 - `/films`
 - `/about`
 - `/testimonials`
@@ -87,15 +69,90 @@ Local production server on `localhost:3190` returned HTTP 200 for:
 - `/cookies`
 - `/sitemap.xml`
 - `/robots.txt`
+- `/does-not-exist` as HTTP 404
 
-Local production server returned HTTP 404 for:
+Vercel preview returned HTTP 200 for:
 
-- `/does-not-exist`
+- `/`
+- `/stories`
+- `/sitemap.xml`
+- `/robots.txt`
 
-## Remaining Owner Actions
+Vercel production returned HTTP 200 for:
 
-1. Create a private GitHub repository for the release workspace.
-2. Push the local `main` branch from `/private/tmp/kt-photography-production-release-20260721-225709`.
-3. Import/deploy that repository in Vercel.
-4. Attach `www.ktphotographydaman.com` and configure `ktphotographydaman.com` to redirect to `www`.
-5. Verify live HTTPS, canonical metadata, sitemap, robots, all public routes, and 404 behavior.
+- `/`
+- `/stories`
+- `/sitemap.xml`
+- `/robots.txt`
+
+Canonical metadata and sitemap content use `https://www.ktphotographydaman.com`.
+
+## Custom Domains
+
+Added to Vercel project:
+
+- `www.ktphotographydaman.com`
+- `ktphotographydaman.com`
+
+Current DNS is still managed at GoDaddy nameservers:
+
+- `ns25.domaincontrol.com`
+- `ns26.domaincontrol.com`
+
+Current live DNS still points to the old DPS/GoDaddy site:
+
+- `www.ktphotographydaman.com` resolves through `ktphotographydaman.com` to `76.223.105.230` and `13.248.243.5`
+- `ktphotographydaman.com` resolves to `76.223.105.230` and `13.248.243.5`
+
+Current live behavior:
+
+- `https://www.ktphotographydaman.com` returns HTTP 301 to `https://ktphotographydaman.com/` from `DPS/2.0.0`
+- `https://ktphotographydaman.com` returns HTTP 200 from `DPS/2.0.0`
+- `https://ktphotographydaman.com/check-date?source=instagram` returns HTTP 404 from `DPS/2.0.0`
+
+DNS/SSL/canonical-domain verification is therefore not complete.
+
+## Exact DNS Owner Action Required
+
+At the current DNS provider, keep existing mail records intact and update only the website records below.
+
+For `www.ktphotographydaman.com`:
+
+- Type: `CNAME`
+- Host/name: `www`
+- Value: `c12a7836708d3627.vercel-dns-017.com.`
+- Remove/replace the current `www` configuration that points back to `ktphotographydaman.com` or the old DPS target.
+
+For `ktphotographydaman.com`:
+
+- Type: `A`
+- Host/name: `@`
+- Value: `216.198.79.1`
+- Type: `A`
+- Host/name: `@`
+- Value: `64.29.17.1`
+- Remove/replace the current apex A records `76.223.105.230` and `13.248.243.5`.
+
+Vercel also allows changing nameservers to `ns1.vercel-dns.com` and `ns2.vercel-dns.com`, but that would require recreating any existing DNS records at Vercel. The safer current action is the explicit record update above.
+
+## Apex To WWW Redirect
+
+The canonical host is `www.ktphotographydaman.com`.
+
+Vercel CLI does not expose a domain-card redirect command. After DNS is valid, configure this exact Vercel project setting:
+
+Open Project Settings -> Domains, open `ktphotographydaman.com`, select Redirect to Another Domain, and choose `www.ktphotographydaman.com`.
+
+The redirect must preserve HTTPS, path, and query string.
+
+## Post-Launch Backlog
+
+Story gallery visual-polish items are preserved in:
+
+- `reports/post-launch-story-design-backlog.md`
+
+These are not part of the initial launch unless they cause actual horizontal scrolling, broken content, or unusable interaction.
+
+## Cloudinary
+
+Cloudinary MCP/API access was non-blocking. The deployed release uses local curated image assets and YouTube thumbnails, not Cloudinary delivery URLs.
