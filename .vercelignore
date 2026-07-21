@@ -1,0 +1,69 @@
+# Dependencies and build output
+node_modules/
+.next/
+out/
+dist/
+build/
+.cache/
+.turbo/
+*.tsbuildinfo
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Local tooling and logs
+.git/
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# QA and generated artifacts
+playwright-report/
+test-results/
+coverage/
+screenshots/
+qa-screenshots/
+reports/screenshots/
+reports/artifacts/
+reports/visual-qa/
+artifacts/
+.qa/
+contact-sheets/
+media-inventory-thumbnails/
+cloudinary-downloads/
+drive-downloads/
+media-downloads/
+data/generated/drive-media-source-manifest.json
+reports/*
+!reports/
+!reports/final-production-launch.md
+reports/story-contact-sheets/
+reports/mayank-rajeshree-crop-candidates.jpg
+
+# Backups
+backups/
+.backups/
+codex-backups/
+.codex-backups/
+*.bak
+*.backup
+
+# Raw wedding media archives
+public/Wedding photography/
+public/KT-public-ceremonies/
+public/raw/
+public/originals/
+public/archive/
+public/media-archive/
