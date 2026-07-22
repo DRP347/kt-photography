@@ -2,7 +2,7 @@
 
 Status: `PRODUCTION BLOCKED — EXACT DNS OWNER ACTION REQUIRED`
 
-Updated: 2026-07-22 01:08 IST
+Updated: 2026-07-22 16:20 IST
 
 Stable workspace: `/Users/gandu/Projects/kt-photography`
 
@@ -25,8 +25,8 @@ Original validated release source: `/private/tmp/kt-photography-production-relea
 - Project name: `kt-photography`
 - Project id: `prj_zOqhIuvC798zOakbEHuBuEAqOx2g`
 - Preview deployment: `https://kt-photography-bp1lkhmn5-deepaks-projects-c818d101.vercel.app`
-- Production deployment: `https://kt-photography-k8ydmnu4e-deepaks-projects-c818d101.vercel.app`
-- Production deployment id: `dpl_4JVsQSejAHMecs65oEcifscMRNQo`
+- Production deployment: `https://kt-photography-cwox9oqrs-deepaks-projects-c818d101.vercel.app`
+- Production deployment id: `dpl_Hk55vBE2Y986ZkwN46T2MLmJLATm`
 - Production status: Ready
 - SSO deployment protection: disabled for public access
 - Production aliases assigned by Vercel: `https://kt-photography.vercel.app`, `https://www.ktphotographydaman.com`, `https://ktphotographydaman.com`
