@@ -25,8 +25,9 @@ Original validated release source: `/private/tmp/kt-photography-production-relea
 - Project name: `kt-photography`
 - Project id: `prj_zOqhIuvC798zOakbEHuBuEAqOx2g`
 - Preview deployment: `https://kt-photography-bp1lkhmn5-deepaks-projects-c818d101.vercel.app`
-- Production deployment: `https://kt-photography-cwox9oqrs-deepaks-projects-c818d101.vercel.app`
-- Production deployment id: `dpl_Hk55vBE2Y986ZkwN46T2MLmJLATm`
+- Production deployment alias: `https://kt-photography.vercel.app`
+- Latest production deployment inspected: `https://kt-photography-4lnohg2h3-deepaks-projects-c818d101.vercel.app`
+- Latest production deployment id: `dpl_7DEdYGtYWFQZkYJHyBtrA3tMW2xV`
 - Production status: Ready
 - SSO deployment protection: disabled for public access
 - Production aliases assigned by Vercel: `https://kt-photography.vercel.app`, `https://www.ktphotographydaman.com`, `https://ktphotographydaman.com`
