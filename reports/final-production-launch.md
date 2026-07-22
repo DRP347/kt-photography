@@ -48,6 +48,7 @@ No Cloudinary API secret or other server-side secret was required for launch.
 - `npm run build`: passed
 - `npm run test`: no test script exists in `package.json`
 - `npx vercel@latest build --prod`: passed after `NEXT_PUBLIC_SITE_URL` was changed from sensitive to non-sensitive so it could be read during build
+- App-level apex redirect middleware: passed local Host-header verification with HTTP 308 and preserved path/query string
 - Secret scan: no tracked credential/token/private-key pattern matches
 - Large-file audit: no tracked non-build source files over 25 MB found
 - Ignored output confirmed: `node_modules/`, `.next/`, `.vercel/`, real env files, raw archive folders, generated reports/screenshots, and local backups
@@ -139,7 +140,13 @@ Vercel also allows changing nameservers to `ns1.vercel-dns.com` and `ns2.vercel-
 
 The canonical host is `www.ktphotographydaman.com`.
 
-Vercel CLI does not expose a domain-card redirect command. After DNS is valid, configure this exact Vercel project setting:
+Implemented fallback middleware:
+
+- `ktphotographydaman.com/check-date?source=instagram` -> `https://www.ktphotographydaman.com/check-date?source=instagram`
+- `ktphotographydaman.com/stories/aamir-binish?utm=test` -> `https://www.ktphotographydaman.com/stories/aamir-binish?utm=test`
+- Status: HTTP 308
+
+Vercel CLI does not expose a domain-card redirect command, and dashboard access was blocked by browser policy in this Codex session. After DNS is valid, optionally also configure this exact Vercel project setting:
 
 Open Project Settings -> Domains, open `ktphotographydaman.com`, select Redirect to Another Domain, and choose `www.ktphotographydaman.com`.
 
