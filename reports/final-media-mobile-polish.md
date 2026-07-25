@@ -79,9 +79,9 @@
 - Branch: `fix/final-media-mobile-polish`.
 - Preview deployment: `https://kt-photography-4pvj0yks3-deepaks-projects-c818d101.vercel.app`.
 - Preview status: Ready and browser verified.
-- Production deployment: `https://kt-photography-2qtkrgzg3-deepaks-projects-c818d101.vercel.app`.
-- Production alias verified: `https://kt-photography.vercel.app`.
-- Production deployment commit: `a4b3fb03b7682eb128243e588a88807f20e0feeb`.
+- Production deployment: `https://kt-photography.vercel.app`.
+- Latest verified unique deployment before final report commit: `https://kt-photography-fuaqlki6d-deepaks-projects-c818d101.vercel.app`.
+- Production deployment commit: final `origin/main` commit recorded in Git final verification.
 - Production status: Ready and browser verified on Vercel URL.
 - Custom-domain status: not live/verified. `www.ktphotographydaman.com` redirects to the old apex site, and `ktphotographydaman.com` does not serve the new Story routes yet.
 - DNS status: Vercel reports current nameservers as `ns25.domaincontrol.com` and `ns26.domaincontrol.com`; intended Vercel nameservers are `ns1.vercel-dns.com` and `ns2.vercel-dns.com`.
