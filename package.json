@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "validate:media": "node scripts/validate-featured-media.mjs",
     "lint": "tsc --noEmit",
     "build": "next build",
     "start": "next start",

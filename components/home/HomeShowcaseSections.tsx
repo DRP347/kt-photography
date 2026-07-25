@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { CSSProperties } from "react";
-import { films, stories, testimonials } from "@/data/archive";
+import { films, getPublicStorySlug, stories, testimonials } from "@/data/archive";
 
 type StoryFrame = {
   src: string;
@@ -20,7 +20,7 @@ const storyFrames: StoryFrame[] = stories.slice(0, 7).map((story, index) => {
     src: image.src,
     alt: image.alt,
     coupleName: story.coupleName,
-    href: `/stories/${story.slug}`,
+    href: `/stories/${getPublicStorySlug(story.slug)}`,
     objectPosition: image.objectPosition ?? "50% 50%",
     line: story.events.join(" / ") || "Wedding story"
   };

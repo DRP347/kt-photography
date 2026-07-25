@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ImageFrame } from "@/components/editorial/ImageFrame";
-import type { Story } from "@/data/archive";
+import { getPublicStorySlug, type Story } from "@/data/archive";
 
 export function StoryCard({
   story,
@@ -18,7 +18,7 @@ export function StoryCard({
 
   return (
     <article className="group grid gap-4">
-      <Link href={`/stories/${story.slug}`} aria-label={`Open ${story.coupleName}`}>
+      <Link href={`/stories/${getPublicStorySlug(story.slug)}`} aria-label={`Open ${story.coupleName}`}>
         <ImageFrame
           image={story.cover}
           sizes="(max-width: 768px) 92vw, (max-width: 1200px) 45vw, 32vw"
@@ -34,7 +34,7 @@ export function StoryCard({
           {story.coupleName}
         </h3>
         <p className="max-w-md text-sm leading-7 text-muted">{story.intro}</p>
-        <Link className="text-link mt-1 w-fit" href={`/stories/${story.slug}`}>
+        <Link className="text-link mt-1 w-fit" href={`/stories/${getPublicStorySlug(story.slug)}`}>
           View story
         </Link>
       </div>

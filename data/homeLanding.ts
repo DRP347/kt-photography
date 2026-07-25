@@ -1,4 +1,4 @@
-import { stories, type ImageAsset } from "@/data/archive";
+import { getPublicStorySlug, stories, type ImageAsset } from "@/data/archive";
 
 type HomeHero = {
   image: ImageAsset;
@@ -58,7 +58,7 @@ const heroStory = getStory("aamir-binish");
 export const homeHero: HomeHero = {
   coupleName: heroStory.coupleName,
   categories: "Weddings · Pre-Weddings · Films",
-  storyHref: `/stories/${heroStory.slug}`,
+  storyHref: `/stories/${getPublicStorySlug(heroStory.slug)}`,
   image: heroStory.hero
 };
 

@@ -44,7 +44,7 @@ const COUPLES = [
   },
   {
     slug: "dhavani-gaurav",
-    coupleName: "Dhavani & Gaurav",
+    coupleName: "Dhwani & Gaurav",
     rootId: "1Ii57gum1NmIJuI2wCmjkfR1LB05JhWpm",
     category: "Pre-Wedding",
     filmSlug: "dhavani-gaurav-pre-wedding-teaser"
@@ -97,8 +97,8 @@ const FILMS = [
   ["bhavin-karishma-highlight", "Bhavin & Karishma", "Wedding Highlight", "Highlight Film", "2OKaYoEg9jA"],
   ["jay-riya-highlight", "Jay & Riya", "Wedding Highlight", "Highlight Film", "m25GQqSyl78"],
   ["saurav-khushboo-highlight", "Saurav & Khushboo", "Highlight Film", "Highlight Film", "B8pKqzJ8fsA"],
-  ["dhavani-gaurav-pre-wedding-teaser", "Dhavani & Gaurav", "Pre-Wedding Teaser", "Pre-Wedding Film", "WK_OniW7O8w"],
-  ["dhavani-gaurav-pre-wedding-goa", "Dhavani & Gaurav", "Pre-Wedding Film", "Pre-Wedding Film", "2DmyleQGoaQ"],
+  ["dhavani-gaurav-pre-wedding-teaser", "Dhwani & Gaurav", "Pre-Wedding Teaser", "Pre-Wedding Film", "WK_OniW7O8w"],
+  ["dhavani-gaurav-pre-wedding-goa", "Dhwani & Gaurav", "Pre-Wedding Film", "Pre-Wedding Film", "2DmyleQGoaQ"],
   ["monika-aman-highlight", "Aman & Monika", "Wedding Highlight", "Highlight Film", "_6KSMXlq8-U"],
   ["monika-aman-teaser", "Aman & Monika", "Wedding Teaser", "Teaser", "3kGObclrM7o"],
   ["mayank-rajeshree-highlight", "Mayank & Rajeshree", "Wedding Highlight", "Highlight Film", "7KdSeO7AMvw"],

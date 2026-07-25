@@ -4,7 +4,7 @@ import Link from "next/link";
 import type { CSSProperties } from "react";
 import { StoriesHeroSlideshow } from "@/components/editorial/StoriesHeroSlideshow";
 import { FooterArchive } from "@/components/layout/FooterArchive";
-import { coupleStoryManifests, stories, storiesHeroSlides, storyDisplayOrder } from "@/data/archive";
+import { coupleStoryManifests, getPublicStorySlug, stories, storiesHeroSlides, storyDisplayOrder } from "@/data/archive";
 import { getCuratedStory } from "@/data/storyCuration";
 import { absoluteUrl } from "@/lib/site";
 
@@ -47,7 +47,7 @@ export default function StoriesPage() {
               <article className="stories-archive-card" key={story.slug}>
                 <Link
                   className="stories-archive-card__link"
-                  href={`/stories/${story.slug}`}
+                  href={`/stories/${getPublicStorySlug(story.slug)}`}
                   aria-label={`View ${story.coupleName} story`}
                 >
                   <span className="stories-archive-card__image">
