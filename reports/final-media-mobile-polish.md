@@ -77,6 +77,7 @@
 ## Deployment
 
 - Branch: `fix/final-media-mobile-polish`.
-- Preview deployment: pending branch push.
+- Preview deployment: `https://kt-photography-4pvj0yks3-deepaks-projects-c818d101.vercel.app`.
+- Preview status: Ready and browser verified.
 - Production deployment commit: pending merge to `main`.
 - Cloudinary MCP: not required and not used.
