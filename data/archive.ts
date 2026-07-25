@@ -71,6 +71,8 @@ export type CoupleStoryManifest = {
 
 export type MemorySlide = {
   id: string;
+  storySlug?: string;
+  namedCoupleConfirmed?: true;
   dominantTone?: string;
 } & ImageAsset;
 
@@ -127,72 +129,123 @@ export const heroStory = {
 
 export const storiesHeroSlides: MemorySlide[] = [
   {
-    id: "floral-canopy-1",
-    src: "/optimized/ee37329347-8.webp",
-    alt: "A couple beneath a floral canopy with petals falling",
+    id: "monika-aman-canopy-1",
+    storySlug: "monika-aman",
+    namedCoupleConfirmed: true,
+    src: "/drive-media/monika-aman/wedding/monika-aman-wedding-916.webp",
+    alt: "Monika & Aman beneath their floral wedding canopy",
     objectPosition: "50% 42%",
     cropDesktop: "50% 42%",
     cropTablet: "50% 42%",
-    cropMobile: "50% 45%",
+    cropMobile: "50% 39%",
     orientation: "portrait",
-    width: 1920,
-    height: 2400,
+    width: 1200,
+    height: 1800,
     dominantTone: "#efe7dc"
   },
   {
     id: "amrith-chetali-2",
+    storySlug: "amrith-chetali",
+    namedCoupleConfirmed: true,
     src: "/drive-media/amrith-chetali/haldi/amrith-chetali-haldi-150.webp",
     alt: "Amrith & Chetali haldi photograph by KT Photography",
-    objectPosition: "50% 50%",
+    objectPosition: "54% 45%",
+    cropDesktop: "54% 45%",
+    cropTablet: "54% 45%",
+    cropMobile: "57% 44%",
     orientation: "landscape",
+    width: 1800,
+    height: 1201,
     dominantTone: "#efe7dc"
   },
   {
     id: "monika-aman-3",
-    src: "/drive-media/monika-aman/haldi/monika-aman-haldi-815.webp",
-    alt: "Aman & Monika haldi photograph by KT Photography",
-    objectPosition: "50% 50%",
+    storySlug: "monika-aman",
+    namedCoupleConfirmed: true,
+    src: "/drive-media/monika-aman/wedding/monika-aman-wedding-915.webp",
+    alt: "Monika & Aman together in their wedding mandap",
+    objectPosition: "50% 48%",
+    cropDesktop: "50% 48%",
+    cropTablet: "50% 47%",
+    cropMobile: "50% 45%",
     orientation: "landscape",
+    width: 1800,
+    height: 1200,
     dominantTone: "#efe7dc"
   },
   {
     id: "dhavani-gaurav-4",
-    src: "/drive-media/dhavani-gaurav/haldi/dhavani-gaurav-haldi-428.webp",
-    alt: "Dhavani & Gaurav haldi photograph by KT Photography",
-    objectPosition: "50% 50%",
+    storySlug: "dhavani-gaurav",
+    namedCoupleConfirmed: true,
+    src: "/drive-media/dhavani-gaurav/haldi/dhavani-gaurav-haldi-441.webp",
+    alt: "Dhwani & Gaurav laughing together at haldi",
+    objectPosition: "50% 45%",
+    cropDesktop: "50% 45%",
+    cropTablet: "50% 45%",
+    cropMobile: "47% 43%",
     orientation: "landscape",
+    width: 1800,
+    height: 1201,
     dominantTone: "#efe7dc"
   },
   {
     id: "saurav-khushboo-5",
+    storySlug: "saurav-khushboo",
+    namedCoupleConfirmed: true,
     src: "/drive-media/saurav-khushboo/wedding/saurav-khushboo-wedding-981.webp",
     alt: "Saurav & Khushboo wedding photograph by KT Photography",
-    objectPosition: "50% 50%",
+    objectPosition: "50% 46%",
+    cropDesktop: "50% 46%",
+    cropTablet: "50% 46%",
+    cropMobile: "50% 43%",
     orientation: "landscape",
+    width: 1800,
+    height: 1202,
     dominantTone: "#efe7dc"
   },
   {
     id: "kunal-aditi-6",
+    storySlug: "kunal-aditi",
+    namedCoupleConfirmed: true,
     src: "/drive-media/kunal-aditi/wedding/kunal-aditi-wedding-641.webp",
     alt: "Kunal & Aditi wedding photograph by KT Photography",
-    objectPosition: "50% 50%",
+    objectPosition: "50% 38%",
+    cropDesktop: "50% 38%",
+    cropTablet: "50% 38%",
+    cropMobile: "50% 36%",
     orientation: "landscape",
+    width: 1800,
+    height: 1201,
     dominantTone: "#efe7dc"
   },
   {
     id: "jay-riya-7",
+    storySlug: "jay-riya",
+    namedCoupleConfirmed: true,
     src: "/drive-media/jay-riya/haldi/jay-riya-haldi-527.webp",
     alt: "Jay & Riya haldi photograph by KT Photography",
-    objectPosition: "50% 50%",
+    objectPosition: "50% 42%",
+    cropDesktop: "50% 42%",
+    cropTablet: "50% 41%",
+    cropMobile: "50% 39%",
     orientation: "landscape",
+    width: 1800,
+    height: 1200,
     dominantTone: "#efe7dc"
   },
   {
     id: "mayank-rajeshree-8",
-    src: "/drive-media/mayank-rajeshree/haldi/mayank-rajeshree-haldi-691.webp",
+    storySlug: "mayank-rajeshree",
+    namedCoupleConfirmed: true,
+    src: "/drive-media/mayank-rajeshree/haldi/mayank-rajeshree-haldi-715.webp",
     alt: "Mayank & Rajeshree haldi photograph by KT Photography",
-    objectPosition: "50% 50%",
-    orientation: "landscape",
+    objectPosition: "50% 36%",
+    cropDesktop: "50% 36%",
+    cropTablet: "50% 34%",
+    cropMobile: "50% 31%",
+    orientation: "portrait",
+    width: 1201,
+    height: 1800,
     dominantTone: "#efe7dc"
   }
 ];
@@ -1493,15 +1546,15 @@ export const stories: Story[] = [
   },
   {
     slug: "dhavani-gaurav",
-    coupleName: "Dhavani & Gaurav",
+    coupleName: "Dhwani & Gaurav",
     category: "Pre-Wedding",
     location: "India",
-    intro: "Dhavani & Gaurav wedding story photographed by KT Photography.",
+    intro: "Dhwani & Gaurav wedding story photographed by KT Photography.",
     note: "A wedding story photographed by KT Photography.",
     mood: "Haldi / Sangeet / Wedding",
     cover: {
     src: "/drive-media/dhavani-gaurav/haldi/dhavani-gaurav-haldi-425.webp",
-    alt: "Dhavani & Gaurav haldi photograph by KT Photography",
+    alt: "Dhwani & Gaurav haldi photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -1512,7 +1565,7 @@ export const stories: Story[] = [
   },
     hero: {
     src: "/drive-media/dhavani-gaurav/haldi/dhavani-gaurav-haldi-428.webp",
-    alt: "Dhavani & Gaurav haldi photograph by KT Photography",
+    alt: "Dhwani & Gaurav haldi photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -1524,7 +1577,7 @@ export const stories: Story[] = [
     gallery: [
       {
     src: "/drive-media/dhavani-gaurav/haldi/dhavani-gaurav-haldi-425.webp",
-    alt: "Dhavani & Gaurav haldi photograph by KT Photography",
+    alt: "Dhwani & Gaurav haldi photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -1535,7 +1588,7 @@ export const stories: Story[] = [
   },
       {
     src: "/drive-media/dhavani-gaurav/haldi/dhavani-gaurav-haldi-428.webp",
-    alt: "Dhavani & Gaurav haldi photograph by KT Photography",
+    alt: "Dhwani & Gaurav haldi photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -1546,7 +1599,7 @@ export const stories: Story[] = [
   },
       {
     src: "/drive-media/dhavani-gaurav/haldi/dhavani-gaurav-haldi-431.webp",
-    alt: "Dhavani & Gaurav haldi photograph by KT Photography",
+    alt: "Dhwani & Gaurav haldi photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -1557,7 +1610,7 @@ export const stories: Story[] = [
   },
       {
     src: "/drive-media/dhavani-gaurav/haldi/dhavani-gaurav-haldi-433.webp",
-    alt: "Dhavani & Gaurav haldi photograph by KT Photography",
+    alt: "Dhwani & Gaurav haldi photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -1568,7 +1621,7 @@ export const stories: Story[] = [
   },
       {
     src: "/drive-media/dhavani-gaurav/haldi/dhavani-gaurav-haldi-436.webp",
-    alt: "Dhavani & Gaurav haldi photograph by KT Photography",
+    alt: "Dhwani & Gaurav haldi photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -1579,7 +1632,7 @@ export const stories: Story[] = [
   },
       {
     src: "/drive-media/dhavani-gaurav/haldi/dhavani-gaurav-haldi-439.webp",
-    alt: "Dhavani & Gaurav haldi photograph by KT Photography",
+    alt: "Dhwani & Gaurav haldi photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -1590,7 +1643,7 @@ export const stories: Story[] = [
   },
       {
     src: "/drive-media/dhavani-gaurav/haldi/dhavani-gaurav-haldi-442.webp",
-    alt: "Dhavani & Gaurav haldi photograph by KT Photography",
+    alt: "Dhwani & Gaurav haldi photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -1601,7 +1654,7 @@ export const stories: Story[] = [
   },
       {
     src: "/drive-media/dhavani-gaurav/haldi/dhavani-gaurav-haldi-445.webp",
-    alt: "Dhavani & Gaurav haldi photograph by KT Photography",
+    alt: "Dhwani & Gaurav haldi photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -1612,7 +1665,7 @@ export const stories: Story[] = [
   },
       {
     src: "/drive-media/dhavani-gaurav/haldi/dhavani-gaurav-haldi-448.webp",
-    alt: "Dhavani & Gaurav haldi photograph by KT Photography",
+    alt: "Dhwani & Gaurav haldi photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -1623,7 +1676,7 @@ export const stories: Story[] = [
   },
       {
     src: "/drive-media/dhavani-gaurav/haldi/dhavani-gaurav-haldi-450.webp",
-    alt: "Dhavani & Gaurav haldi photograph by KT Photography",
+    alt: "Dhwani & Gaurav haldi photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -1634,7 +1687,7 @@ export const stories: Story[] = [
   },
       {
     src: "/drive-media/dhavani-gaurav/sangeet/dhavani-gaurav-sangeet-453.webp",
-    alt: "Dhavani & Gaurav sangeet photograph by KT Photography",
+    alt: "Dhwani & Gaurav sangeet photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -1645,7 +1698,7 @@ export const stories: Story[] = [
   },
       {
     src: "/drive-media/dhavani-gaurav/sangeet/dhavani-gaurav-sangeet-456.webp",
-    alt: "Dhavani & Gaurav sangeet photograph by KT Photography",
+    alt: "Dhwani & Gaurav sangeet photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -1656,7 +1709,7 @@ export const stories: Story[] = [
   },
       {
     src: "/drive-media/dhavani-gaurav/sangeet/dhavani-gaurav-sangeet-459.webp",
-    alt: "Dhavani & Gaurav sangeet photograph by KT Photography",
+    alt: "Dhwani & Gaurav sangeet photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -1667,7 +1720,7 @@ export const stories: Story[] = [
   },
       {
     src: "/drive-media/dhavani-gaurav/sangeet/dhavani-gaurav-sangeet-462.webp",
-    alt: "Dhavani & Gaurav sangeet photograph by KT Photography",
+    alt: "Dhwani & Gaurav sangeet photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -1678,7 +1731,7 @@ export const stories: Story[] = [
   },
       {
     src: "/drive-media/dhavani-gaurav/sangeet/dhavani-gaurav-sangeet-465.webp",
-    alt: "Dhavani & Gaurav sangeet photograph by KT Photography",
+    alt: "Dhwani & Gaurav sangeet photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -1689,7 +1742,7 @@ export const stories: Story[] = [
   },
       {
     src: "/drive-media/dhavani-gaurav/sangeet/dhavani-gaurav-sangeet-467.webp",
-    alt: "Dhavani & Gaurav sangeet photograph by KT Photography",
+    alt: "Dhwani & Gaurav sangeet photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -1700,7 +1753,7 @@ export const stories: Story[] = [
   },
       {
     src: "/drive-media/dhavani-gaurav/sangeet/dhavani-gaurav-sangeet-470.webp",
-    alt: "Dhavani & Gaurav sangeet photograph by KT Photography",
+    alt: "Dhwani & Gaurav sangeet photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -1711,7 +1764,7 @@ export const stories: Story[] = [
   },
       {
     src: "/drive-media/dhavani-gaurav/sangeet/dhavani-gaurav-sangeet-473.webp",
-    alt: "Dhavani & Gaurav sangeet photograph by KT Photography",
+    alt: "Dhwani & Gaurav sangeet photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -1722,7 +1775,7 @@ export const stories: Story[] = [
   },
       {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-476.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -1733,7 +1786,7 @@ export const stories: Story[] = [
   },
       {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-479.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -1744,7 +1797,7 @@ export const stories: Story[] = [
   },
       {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-482.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -1755,7 +1808,7 @@ export const stories: Story[] = [
   },
       {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-484.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -1766,7 +1819,7 @@ export const stories: Story[] = [
   },
       {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-487.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -1777,7 +1830,7 @@ export const stories: Story[] = [
   },
       {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-490.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -1788,7 +1841,7 @@ export const stories: Story[] = [
   },
       {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-493.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -1799,7 +1852,7 @@ export const stories: Story[] = [
   },
       {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-496.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -1810,7 +1863,7 @@ export const stories: Story[] = [
   },
       {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-499.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -1821,7 +1874,7 @@ export const stories: Story[] = [
   },
       {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-501.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -1832,7 +1885,7 @@ export const stories: Story[] = [
   },
       {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-504.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -1843,7 +1896,7 @@ export const stories: Story[] = [
   },
       {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-507.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -1854,7 +1907,7 @@ export const stories: Story[] = [
   },
       {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-510.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -1865,7 +1918,7 @@ export const stories: Story[] = [
   },
       {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-513.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -1876,7 +1929,7 @@ export const stories: Story[] = [
   },
       {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-516.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -1887,7 +1940,7 @@ export const stories: Story[] = [
   },
       {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-518.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -1898,7 +1951,7 @@ export const stories: Story[] = [
   },
       {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-521.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -1909,7 +1962,7 @@ export const stories: Story[] = [
   },
       {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-524.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -4510,6 +4563,22 @@ export const stories: Story[] = [
   }
 ];
 
+export const storySlugAliases: Record<string, string> = {
+  "dhwani-gaurav": "dhavani-gaurav"
+};
+
+export const storyCanonicalSlugs: Record<string, string> = {
+  "dhavani-gaurav": "dhwani-gaurav"
+};
+
+export function getPublicStorySlug(slug: string) {
+  return storyCanonicalSlugs[slug] ?? slug;
+}
+
+export function resolveStorySlug(slug: string) {
+  return storySlugAliases[slug] ?? slug;
+}
+
 export const featuredStorySlugs = ["aamir-binish","amrith-chetali","monika-aman","dhavani-gaurav"];
 export const storyDisplayOrder = ["aamir-binish","amrith-chetali","monika-aman","dhavani-gaurav","saurav-khushboo","kunal-aditi","jay-riya","mayank-rajeshree","bhavin-karishma","sunil-vaishnavi"];
 export const storyTiers: Record<string, CoupleStoryManifest["storyTier"]> = Object.fromEntries(storyDisplayOrder.map((slug) => [slug, "developed"])) as Record<string, CoupleStoryManifest["storyTier"]>;
@@ -4573,13 +4642,13 @@ export const films: Film[] = [
   },
   {
     slug: "dhavani-gaurav-pre-wedding-teaser",
-    coupleName: "Dhavani & Gaurav",
+    coupleName: "Dhwani & Gaurav",
     title: "Pre-Wedding Teaser",
     type: "Pre-Wedding Film",
     description: "A film from KT Photography's official YouTube channel.",
     poster: {
       src: "https://i.ytimg.com/vi/WK_OniW7O8w/hqdefault.jpg",
-      alt: "Poster for Dhavani & Gaurav pre-wedding teaser by KT Photography",
+      alt: "Poster for Dhwani & Gaurav pre-wedding teaser by KT Photography",
       objectPosition: "50% 50%",
       orientation: "landscape"
     },
@@ -4587,13 +4656,13 @@ export const films: Film[] = [
   },
   {
     slug: "dhavani-gaurav-pre-wedding-goa",
-    coupleName: "Dhavani & Gaurav",
+    coupleName: "Dhwani & Gaurav",
     title: "Pre-Wedding Film",
     type: "Pre-Wedding Film",
     description: "A film from KT Photography's official YouTube channel.",
     poster: {
       src: "https://i.ytimg.com/vi/2DmyleQGoaQ/hqdefault.jpg",
-      alt: "Poster for Dhavani & Gaurav pre-wedding film by KT Photography",
+      alt: "Poster for Dhwani & Gaurav pre-wedding film by KT Photography",
       objectPosition: "50% 50%",
       orientation: "landscape"
     },
@@ -9551,7 +9620,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
         module: "A",
         left: {
     src: "/drive-media/dhavani-gaurav/haldi/dhavani-gaurav-haldi-425.webp",
-    alt: "Dhavani & Gaurav haldi photograph by KT Photography",
+    alt: "Dhwani & Gaurav haldi photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -9562,7 +9631,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
         center: {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-475.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -9573,7 +9642,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
         right: {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-524.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -9592,7 +9661,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
         images: [
           {
     src: "/drive-media/dhavani-gaurav/haldi/dhavani-gaurav-haldi-425.webp",
-    alt: "Dhavani & Gaurav haldi photograph by KT Photography",
+    alt: "Dhwani & Gaurav haldi photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -9603,7 +9672,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/haldi/dhavani-gaurav-haldi-426.webp",
-    alt: "Dhavani & Gaurav haldi photograph by KT Photography",
+    alt: "Dhwani & Gaurav haldi photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -9614,7 +9683,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/haldi/dhavani-gaurav-haldi-427.webp",
-    alt: "Dhavani & Gaurav haldi photograph by KT Photography",
+    alt: "Dhwani & Gaurav haldi photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -9625,7 +9694,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/haldi/dhavani-gaurav-haldi-428.webp",
-    alt: "Dhavani & Gaurav haldi photograph by KT Photography",
+    alt: "Dhwani & Gaurav haldi photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -9636,7 +9705,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/haldi/dhavani-gaurav-haldi-429.webp",
-    alt: "Dhavani & Gaurav haldi photograph by KT Photography",
+    alt: "Dhwani & Gaurav haldi photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -9647,7 +9716,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/haldi/dhavani-gaurav-haldi-430.webp",
-    alt: "Dhavani & Gaurav haldi photograph by KT Photography",
+    alt: "Dhwani & Gaurav haldi photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -9658,7 +9727,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/haldi/dhavani-gaurav-haldi-431.webp",
-    alt: "Dhavani & Gaurav haldi photograph by KT Photography",
+    alt: "Dhwani & Gaurav haldi photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -9669,7 +9738,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/haldi/dhavani-gaurav-haldi-432.webp",
-    alt: "Dhavani & Gaurav haldi photograph by KT Photography",
+    alt: "Dhwani & Gaurav haldi photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -9680,7 +9749,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/haldi/dhavani-gaurav-haldi-433.webp",
-    alt: "Dhavani & Gaurav haldi photograph by KT Photography",
+    alt: "Dhwani & Gaurav haldi photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -9691,7 +9760,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/haldi/dhavani-gaurav-haldi-434.webp",
-    alt: "Dhavani & Gaurav haldi photograph by KT Photography",
+    alt: "Dhwani & Gaurav haldi photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -9702,7 +9771,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/haldi/dhavani-gaurav-haldi-435.webp",
-    alt: "Dhavani & Gaurav haldi photograph by KT Photography",
+    alt: "Dhwani & Gaurav haldi photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -9713,7 +9782,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/haldi/dhavani-gaurav-haldi-436.webp",
-    alt: "Dhavani & Gaurav haldi photograph by KT Photography",
+    alt: "Dhwani & Gaurav haldi photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -9724,7 +9793,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/haldi/dhavani-gaurav-haldi-437.webp",
-    alt: "Dhavani & Gaurav haldi photograph by KT Photography",
+    alt: "Dhwani & Gaurav haldi photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -9735,7 +9804,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/haldi/dhavani-gaurav-haldi-438.webp",
-    alt: "Dhavani & Gaurav haldi photograph by KT Photography",
+    alt: "Dhwani & Gaurav haldi photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -9746,7 +9815,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/haldi/dhavani-gaurav-haldi-439.webp",
-    alt: "Dhavani & Gaurav haldi photograph by KT Photography",
+    alt: "Dhwani & Gaurav haldi photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -9757,7 +9826,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/haldi/dhavani-gaurav-haldi-440.webp",
-    alt: "Dhavani & Gaurav haldi photograph by KT Photography",
+    alt: "Dhwani & Gaurav haldi photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -9768,7 +9837,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/haldi/dhavani-gaurav-haldi-441.webp",
-    alt: "Dhavani & Gaurav haldi photograph by KT Photography",
+    alt: "Dhwani & Gaurav haldi photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -9779,7 +9848,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/haldi/dhavani-gaurav-haldi-442.webp",
-    alt: "Dhavani & Gaurav haldi photograph by KT Photography",
+    alt: "Dhwani & Gaurav haldi photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -9790,7 +9859,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/haldi/dhavani-gaurav-haldi-443.webp",
-    alt: "Dhavani & Gaurav haldi photograph by KT Photography",
+    alt: "Dhwani & Gaurav haldi photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -9801,7 +9870,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/haldi/dhavani-gaurav-haldi-444.webp",
-    alt: "Dhavani & Gaurav haldi photograph by KT Photography",
+    alt: "Dhwani & Gaurav haldi photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -9812,7 +9881,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/haldi/dhavani-gaurav-haldi-445.webp",
-    alt: "Dhavani & Gaurav haldi photograph by KT Photography",
+    alt: "Dhwani & Gaurav haldi photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -9823,7 +9892,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/haldi/dhavani-gaurav-haldi-446.webp",
-    alt: "Dhavani & Gaurav haldi photograph by KT Photography",
+    alt: "Dhwani & Gaurav haldi photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -9834,7 +9903,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/haldi/dhavani-gaurav-haldi-447.webp",
-    alt: "Dhavani & Gaurav haldi photograph by KT Photography",
+    alt: "Dhwani & Gaurav haldi photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -9845,7 +9914,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/haldi/dhavani-gaurav-haldi-448.webp",
-    alt: "Dhavani & Gaurav haldi photograph by KT Photography",
+    alt: "Dhwani & Gaurav haldi photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -9856,7 +9925,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/haldi/dhavani-gaurav-haldi-449.webp",
-    alt: "Dhavani & Gaurav haldi photograph by KT Photography",
+    alt: "Dhwani & Gaurav haldi photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -9867,7 +9936,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/haldi/dhavani-gaurav-haldi-450.webp",
-    alt: "Dhavani & Gaurav haldi photograph by KT Photography",
+    alt: "Dhwani & Gaurav haldi photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -9878,7 +9947,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/haldi/dhavani-gaurav-haldi-451.webp",
-    alt: "Dhavani & Gaurav haldi photograph by KT Photography",
+    alt: "Dhwani & Gaurav haldi photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -9897,7 +9966,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
         images: [
           {
     src: "/drive-media/dhavani-gaurav/sangeet/dhavani-gaurav-sangeet-452.webp",
-    alt: "Dhavani & Gaurav sangeet photograph by KT Photography",
+    alt: "Dhwani & Gaurav sangeet photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -9908,7 +9977,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/sangeet/dhavani-gaurav-sangeet-453.webp",
-    alt: "Dhavani & Gaurav sangeet photograph by KT Photography",
+    alt: "Dhwani & Gaurav sangeet photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -9919,7 +9988,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/sangeet/dhavani-gaurav-sangeet-454.webp",
-    alt: "Dhavani & Gaurav sangeet photograph by KT Photography",
+    alt: "Dhwani & Gaurav sangeet photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -9930,7 +9999,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/sangeet/dhavani-gaurav-sangeet-455.webp",
-    alt: "Dhavani & Gaurav sangeet photograph by KT Photography",
+    alt: "Dhwani & Gaurav sangeet photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -9941,7 +10010,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/sangeet/dhavani-gaurav-sangeet-456.webp",
-    alt: "Dhavani & Gaurav sangeet photograph by KT Photography",
+    alt: "Dhwani & Gaurav sangeet photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -9952,7 +10021,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/sangeet/dhavani-gaurav-sangeet-457.webp",
-    alt: "Dhavani & Gaurav sangeet photograph by KT Photography",
+    alt: "Dhwani & Gaurav sangeet photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1200,
@@ -9963,7 +10032,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/sangeet/dhavani-gaurav-sangeet-458.webp",
-    alt: "Dhavani & Gaurav sangeet photograph by KT Photography",
+    alt: "Dhwani & Gaurav sangeet photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -9974,7 +10043,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/sangeet/dhavani-gaurav-sangeet-459.webp",
-    alt: "Dhavani & Gaurav sangeet photograph by KT Photography",
+    alt: "Dhwani & Gaurav sangeet photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -9985,7 +10054,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/sangeet/dhavani-gaurav-sangeet-460.webp",
-    alt: "Dhavani & Gaurav sangeet photograph by KT Photography",
+    alt: "Dhwani & Gaurav sangeet photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -9996,7 +10065,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/sangeet/dhavani-gaurav-sangeet-461.webp",
-    alt: "Dhavani & Gaurav sangeet photograph by KT Photography",
+    alt: "Dhwani & Gaurav sangeet photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -10007,7 +10076,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/sangeet/dhavani-gaurav-sangeet-462.webp",
-    alt: "Dhavani & Gaurav sangeet photograph by KT Photography",
+    alt: "Dhwani & Gaurav sangeet photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -10018,7 +10087,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/sangeet/dhavani-gaurav-sangeet-463.webp",
-    alt: "Dhavani & Gaurav sangeet photograph by KT Photography",
+    alt: "Dhwani & Gaurav sangeet photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -10029,7 +10098,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/sangeet/dhavani-gaurav-sangeet-464.webp",
-    alt: "Dhavani & Gaurav sangeet photograph by KT Photography",
+    alt: "Dhwani & Gaurav sangeet photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -10040,7 +10109,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/sangeet/dhavani-gaurav-sangeet-465.webp",
-    alt: "Dhavani & Gaurav sangeet photograph by KT Photography",
+    alt: "Dhwani & Gaurav sangeet photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -10051,7 +10120,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/sangeet/dhavani-gaurav-sangeet-466.webp",
-    alt: "Dhavani & Gaurav sangeet photograph by KT Photography",
+    alt: "Dhwani & Gaurav sangeet photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -10062,7 +10131,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/sangeet/dhavani-gaurav-sangeet-467.webp",
-    alt: "Dhavani & Gaurav sangeet photograph by KT Photography",
+    alt: "Dhwani & Gaurav sangeet photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -10073,7 +10142,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/sangeet/dhavani-gaurav-sangeet-468.webp",
-    alt: "Dhavani & Gaurav sangeet photograph by KT Photography",
+    alt: "Dhwani & Gaurav sangeet photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -10084,7 +10153,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/sangeet/dhavani-gaurav-sangeet-469.webp",
-    alt: "Dhavani & Gaurav sangeet photograph by KT Photography",
+    alt: "Dhwani & Gaurav sangeet photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -10095,7 +10164,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/sangeet/dhavani-gaurav-sangeet-470.webp",
-    alt: "Dhavani & Gaurav sangeet photograph by KT Photography",
+    alt: "Dhwani & Gaurav sangeet photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -10106,7 +10175,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/sangeet/dhavani-gaurav-sangeet-471.webp",
-    alt: "Dhavani & Gaurav sangeet photograph by KT Photography",
+    alt: "Dhwani & Gaurav sangeet photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -10117,7 +10186,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/sangeet/dhavani-gaurav-sangeet-472.webp",
-    alt: "Dhavani & Gaurav sangeet photograph by KT Photography",
+    alt: "Dhwani & Gaurav sangeet photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -10128,7 +10197,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/sangeet/dhavani-gaurav-sangeet-473.webp",
-    alt: "Dhavani & Gaurav sangeet photograph by KT Photography",
+    alt: "Dhwani & Gaurav sangeet photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -10139,7 +10208,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/sangeet/dhavani-gaurav-sangeet-474.webp",
-    alt: "Dhavani & Gaurav sangeet photograph by KT Photography",
+    alt: "Dhwani & Gaurav sangeet photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -10158,7 +10227,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
         images: [
           {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-475.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -10169,7 +10238,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-476.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -10180,7 +10249,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-477.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -10191,7 +10260,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-478.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -10202,7 +10271,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-479.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -10213,7 +10282,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-480.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -10224,7 +10293,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-481.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -10235,7 +10304,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-482.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -10246,7 +10315,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-483.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -10257,7 +10326,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-484.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -10268,7 +10337,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-485.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -10279,7 +10348,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-486.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -10290,7 +10359,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-487.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -10301,7 +10370,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-488.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -10312,7 +10381,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-489.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -10323,7 +10392,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-490.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -10334,7 +10403,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-491.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -10345,7 +10414,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-492.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -10356,7 +10425,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-493.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -10367,7 +10436,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-494.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -10378,7 +10447,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-495.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -10389,7 +10458,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-496.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -10400,7 +10469,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-497.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -10411,7 +10480,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-498.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -10422,7 +10491,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-499.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -10433,7 +10502,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-500.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -10444,7 +10513,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-501.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -10455,7 +10524,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-502.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -10466,7 +10535,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-503.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -10477,7 +10546,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-504.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -10488,7 +10557,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-505.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -10499,7 +10568,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-506.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -10510,7 +10579,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-507.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -10521,7 +10590,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-508.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -10532,7 +10601,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-509.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -10543,7 +10612,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-510.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -10554,7 +10623,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-511.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -10565,7 +10634,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-512.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -10576,7 +10645,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-513.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -10587,7 +10656,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-514.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -10598,7 +10667,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-515.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -10609,7 +10678,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-516.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -10620,7 +10689,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-517.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -10631,7 +10700,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-518.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -10642,7 +10711,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-519.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "portrait",
     width: 1201,
@@ -10653,7 +10722,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-520.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -10664,7 +10733,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-521.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -10675,7 +10744,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-522.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -10686,7 +10755,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-523.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -10697,7 +10766,7 @@ export const coupleStoryManifests: Record<string, CoupleStoryManifest> = {
   },
           {
     src: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-524.webp",
-    alt: "Dhavani & Gaurav wedding photograph by KT Photography",
+    alt: "Dhwani & Gaurav wedding photograph by KT Photography",
     objectPosition: "50% 50%",
     orientation: "landscape",
     width: 1800,
@@ -17696,7 +17765,8 @@ export const contact = {
 };
 
 export function getStory(slug: string) {
-  return stories.find((story) => story.slug === slug);
+  const resolvedSlug = resolveStorySlug(slug);
+  return stories.find((story) => story.slug === resolvedSlug);
 }
 
 export function getFilm(slug: string) {

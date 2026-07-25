@@ -6,7 +6,7 @@ import { BookingRoom } from "@/components/editorial/BookingRoom";
 import { StoryFilmTile } from "@/components/editorial/StoryFilmTile";
 import { StoryShareButton } from "@/components/editorial/StoryShareButton";
 import type { OpeningTriptych, StoryFunction, StoryImage, StoryModule } from "@/data/archive";
-import { coupleStoryManifests, films, getFilm, getStory, stories } from "@/data/archive";
+import { coupleStoryManifests, films, getFilm, getPublicStorySlug, getStory, stories } from "@/data/archive";
 import { getCuratedManifest, getCuratedStory } from "@/data/storyCuration";
 import { absoluteUrl } from "@/lib/site";
 
@@ -15,7 +15,7 @@ type StoryPageProps = {
 };
 
 export function generateStaticParams() {
-  return stories.map((story) => ({ slug: story.slug }));
+  return stories.map((story) => ({ slug: getPublicStorySlug(story.slug) }));
 }
 
 export async function generateMetadata({ params }: StoryPageProps): Promise<Metadata> {
@@ -29,12 +29,12 @@ export async function generateMetadata({ params }: StoryPageProps): Promise<Meta
     title: `${curatedStory.coupleName} Wedding Story`,
     description: curatedStory.intro,
     alternates: {
-      canonical: absoluteUrl(`/stories/${curatedStory.slug}`)
+      canonical: absoluteUrl(`/stories/${getPublicStorySlug(curatedStory.slug)}`)
     },
     openGraph: {
       title: `${curatedStory.coupleName} Wedding Story | KT Photography`,
       description: curatedStory.intro,
-      url: absoluteUrl(`/stories/${curatedStory.slug}`),
+      url: absoluteUrl(`/stories/${getPublicStorySlug(curatedStory.slug)}`),
       images: [
         {
           url: curatedStory.cover.src,
