@@ -10,8 +10,8 @@ export function HomeTestimonials() {
     <div className={styles.heading}>
       <p className="type-kicker">Testimonials</p>
       <h2 id="home-testimonials-title" className={typeStyles.sectionTitle}>Kind words</h2>
-      <Link className="text-link" href="/testimonials">All testimonials</Link>
     </div>
     <ClientReview review={googleReviews[1]} className={styles.review} />
+    <Link className={`text-link ${styles.all}`} href="/testimonials">All testimonials</Link>
   </section>;
 }

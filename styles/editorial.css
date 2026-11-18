@@ -588,3 +588,8 @@ input[aria-invalid="true"] { border-color: #9b321f; }
   .couple-story .story-opening figure { display: grid; justify-items: center; }
   .couple-story .story-opening .archive-photo { width: auto; max-height: var(--opening-available-height, calc(100svh - var(--header-height) - 180px)); object-fit: contain; }
 }
+
+/* The homepage photograph fills the first screen beneath the measured navbar. */
+.home-hero { width: 100%; margin-inline: 0; padding-block: 0; }
+.home-hero .swipe-carousel__photograph { height: calc(100svh - var(--measured-header, calc(var(--header-height) + 1px))); aspect-ratio: auto; }
+.home-hero .swipe-carousel__photograph img { object-fit: cover; }

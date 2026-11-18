@@ -14,8 +14,8 @@ export function HomeShowcaseSections() {
     <div className={`home-handoff ${styles.stack}`}>
       <StoriesSlider stories={selected} />
       <HomeFilm />
-      <HomeEditorialLayer order={3} name="about"><HomeAbout /></HomeEditorialLayer>
-      <HomeEditorialLayer order={4} name="testimonials"><HomeTestimonials /></HomeEditorialLayer>
+      <HomeEditorialLayer order={3} name="testimonials"><HomeTestimonials /></HomeEditorialLayer>
+      <HomeEditorialLayer order={4} name="about"><HomeAbout /></HomeEditorialLayer>
       <HomeEditorialLayer order={5} name="enquiry"><BookingRoom /></HomeEditorialLayer>
     </div>
   </>;
