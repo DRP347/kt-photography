@@ -1,0 +1,20 @@
+.about { width: min(1160px, 86%); margin-inline: auto; display: grid; grid-template-columns: minmax(0, 340px) minmax(0, 52ch); column-gap: clamp(32px, 4vw, 56px); justify-content: center; row-gap: 24px; align-items: start; font-size: clamp(18px, 1.4vw, 20px); }
+.heading { grid-column: 2; }
+.heading h2 { margin-top: 12px; }
+.portrait { grid-column: 1; grid-row: 1 / 3; width: min(100%, 340px); justify-self: center; align-self: center; }
+.body { grid-column: 2; color: var(--ink); font: 400 1em/1.6 var(--font-body); text-wrap: pretty; }
+.body p:first-child { font-weight: 500; }
+.body p + p { margin-top: 1.3em; }
+.body a { margin-top: 18px; min-height: 44px; }
+@media (min-width: 701px) and (max-width: 1100px) {
+  .about { grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); column-gap: 32px; }
+}
+@media (max-width: 700px) {
+  .about { width: calc(100% - 40px); grid-template-columns: minmax(0, 1fr) minmax(120px, 42%); column-gap: 20px; row-gap: 24px; font-size: 17px; }
+  .heading { grid-column: 1; align-self: center; }
+  .portrait { grid-column: 2; grid-row: 1; width: 100%; }
+  .body { grid-column: 1 / -1; }
+}
+
+.storyLink { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 8px 16px; border: 1px solid var(--rule); color: var(--ink); background: transparent; font-size: 11px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; text-decoration: none; }
+.storyLink:hover { background: #ece7dc80; border-color: var(--muted); }

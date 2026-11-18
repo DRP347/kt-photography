@@ -1,0 +1,10 @@
+/* Shared full-review typography for the manual stage and homepage preview. */
+.client-review blockquote { max-width: 52ch; font-family: var(--font-body); font-size: var(--body-size); font-weight: 400; line-height: var(--body-leading); letter-spacing: normal; text-wrap: pretty; }
+.client-review blockquote p { white-space: pre-line; }
+.client-review figcaption { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 24px; margin-top: 24px; font-size: 12px; letter-spacing: .05em; }
+.client-review__name { font-weight: 600; }
+.client-review .text-link { color: var(--muted); border-color: var(--rule); min-height: 44px; }
+.client-review .text-link:hover { color: var(--ink); border-color: var(--ink); }
+@media (max-width: 700px) {
+  .client-review figcaption { margin-top: 18px; gap: 4px 20px; }
+}

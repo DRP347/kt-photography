@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { BookingRoom } from "@/components/editorial/BookingRoom";
 import { EditorialHero } from "@/components/home/EditorialHero";
 import { HomeShowcaseSections } from "@/components/home/HomeShowcaseSections";
 import { MosaicMemoryWall } from "@/components/home/MosaicMemoryWall";
@@ -21,7 +20,6 @@ export default function Home() {
         <EditorialHero />
         <MosaicMemoryWall />
         <HomeShowcaseSections />
-        <BookingRoom />
       </main>
       <FooterArchive />
     </>

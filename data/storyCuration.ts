@@ -62,6 +62,11 @@ const curation: Record<string, StoryCuration> = {
     },
     finalLimit: 60,
     exclude: {
+      // Earlier import 001–049 repeats 050–098 without the archive watermark.
+      ...Object.fromEntries(Array.from({ length: 49 }, (_, index) => [
+        `/drive-media/aamir-binish/wedding/aamir-binish-wedding-${String(index + 1).padStart(3, "0")}.webp`,
+        "duplicate photograph from the earlier import"
+      ])),
       "/drive-media/aamir-binish/wedding/aamir-binish-wedding-116.webp": "architectural/detail frame held out of primary story rhythm",
       "/drive-media/aamir-binish/wedding/aamir-binish-wedding-118.webp": "detail close-up removed from prominent sequence"
     }
@@ -133,88 +138,45 @@ const curation: Record<string, StoryCuration> = {
   },
   "dhavani-gaurav": {
     quote: editorialLines["dhavani-gaurav"],
-    coverSrc: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-503.webp",
+    coverSrc: "/drive-media/dhavani-gaurav/haldi/dhavani-gaurav-haldi-441.webp",
     heroSrc: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-500.webp",
-    cardImagePublicId: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-503.webp",
-    cardImageFocalPoint: "couple centered under red ceremony backdrop",
+    cardImagePublicId: "/drive-media/dhavani-gaurav/haldi/dhavani-gaurav-haldi-441.webp",
+    cardImageFocalPoint: "laughing couple centered",
     heroPrimaryPublicId: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-500.webp",
     heroSecondaryPublicIds: [
-      "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-504.webp",
-      "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-503.webp"
+      "/drive-media/dhavani-gaurav/haldi/dhavani-gaurav-haldi-441.webp",
+      "/drive-media/dhavani-gaurav/sangeet/dhavani-gaurav-sangeet-452.webp"
     ],
     opening: {
-      left: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-504.webp",
+      left: "/drive-media/dhavani-gaurav/haldi/dhavani-gaurav-haldi-441.webp",
       center: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-500.webp",
-      right: "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-503.webp"
+      right: "/drive-media/dhavani-gaurav/sangeet/dhavani-gaurav-sangeet-452.webp"
     },
     finalLimit: 54,
-    focalPoints: {
-      "/drive-media/dhavani-gaurav/haldi/dhavani-gaurav-haldi-441.webp": {
-        objectPosition: "50% 45%",
-        cropDesktop: "50% 45%",
-        cropTablet: "50% 44%",
-        cropMobile: "47% 42%"
-      },
-      "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-500.webp": {
-        objectPosition: "50% 48%",
-        cropDesktop: "50% 48%",
-        cropTablet: "50% 47%",
-        cropMobile: "50% 45%"
-      },
-      "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-503.webp": {
-        objectPosition: "50% 42%",
-        cropDesktop: "50% 42%",
-        cropTablet: "50% 41%",
-        cropMobile: "50% 39%"
-      },
-      "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-504.webp": {
-        objectPosition: "50% 42%",
-        cropDesktop: "50% 42%",
-        cropTablet: "50% 41%",
-        cropMobile: "50% 39%"
-      }
-    },
     exclude: {
       "/drive-media/dhavani-gaurav/haldi/dhavani-gaurav-haldi-425.webp": "individual portrait removed from card/opening use",
-      "/drive-media/dhavani-gaurav/haldi/dhavani-gaurav-haldi-441.webp": "father/relative-forward haldi frame removed from prominent couple positions",
-      "/drive-media/dhavani-gaurav/sangeet/dhavani-gaurav-sangeet-452.webp": "stage/guest-forward frame removed from opening use",
       "/drive-media/dhavani-gaurav/wedding/dhavani-gaurav-wedding-475.webp": "signage frame excluded from rendered gallery"
     }
   },
   "saurav-khushboo": {
     quote: editorialLines["saurav-khushboo"],
-    coverSrc: "/drive-media/saurav-khushboo/sangeet/saurav-khushboo-sangeet-964.webp",
+    coverSrc: "/drive-media/saurav-khushboo/haldi/saurav-khushboo-haldi-946.webp",
     heroSrc: "/drive-media/saurav-khushboo/wedding/saurav-khushboo-wedding-981.webp",
-    cardImagePublicId: "/drive-media/saurav-khushboo/sangeet/saurav-khushboo-sangeet-964.webp",
-    cardImageFocalPoint: "couple faces centered in close evening portrait",
+    cardImagePublicId: "/drive-media/saurav-khushboo/haldi/saurav-khushboo-haldi-946.webp",
+    cardImageFocalPoint: "couple centered in haldi frame",
     heroPrimaryPublicId: "/drive-media/saurav-khushboo/wedding/saurav-khushboo-wedding-981.webp",
     heroSecondaryPublicIds: [
-      "/drive-media/saurav-khushboo/sangeet/saurav-khushboo-sangeet-964.webp",
+      "/drive-media/saurav-khushboo/haldi/saurav-khushboo-haldi-946.webp",
       "/drive-media/saurav-khushboo/sangeet/saurav-khushboo-sangeet-968.webp"
     ],
     opening: {
-      left: "/drive-media/saurav-khushboo/sangeet/saurav-khushboo-sangeet-964.webp",
+      left: "/drive-media/saurav-khushboo/haldi/saurav-khushboo-haldi-946.webp",
       center: "/drive-media/saurav-khushboo/wedding/saurav-khushboo-wedding-981.webp",
       right: "/drive-media/saurav-khushboo/sangeet/saurav-khushboo-sangeet-968.webp"
     },
     finalLimit: 48,
-    focalPoints: {
-      "/drive-media/saurav-khushboo/sangeet/saurav-khushboo-sangeet-964.webp": {
-        objectPosition: "52% 38%",
-        cropDesktop: "52% 38%",
-        cropTablet: "52% 38%",
-        cropMobile: "54% 36%"
-      },
-      "/drive-media/saurav-khushboo/wedding/saurav-khushboo-wedding-981.webp": {
-        objectPosition: "50% 45%",
-        cropDesktop: "50% 45%",
-        cropTablet: "50% 44%",
-        cropMobile: "50% 42%"
-      }
-    },
     exclude: {
       "/drive-media/saurav-khushboo/wedding/saurav-khushboo-wedding-1013.webp": "individual bride portrait moved out of opening sequence",
-      "/drive-media/saurav-khushboo/haldi/saurav-khushboo-haldi-946.webp": "poster-style image with small embedded couple removed from story card and opening use",
       "/drive-media/saurav-khushboo/haldi/saurav-khushboo-haldi-950.webp": "poster-style composite excluded from rendered story",
       "/drive-media/saurav-khushboo/haldi/saurav-khushboo-haldi-951.webp": "poster-style composite excluded from rendered story"
     }
@@ -282,6 +244,7 @@ const curation: Record<string, StoryCuration> = {
       }
     },
     exclude: {
+      "/drive-media/jay-riya/wedding/jay-riya-wedding-565.webp": "duplicate of wedding-559 with added text",
       "/drive-media/jay-riya/haldi/jay-riya-haldi-525.webp": "individual groom portrait removed from primary story use",
       "/drive-media/jay-riya/wedding/jay-riya-wedding-572.webp": "obstructed crowd frame removed from opening and prominent rows",
       "/drive-media/jay-riya/wedding/jay-riya-wedding-634.webp": "ritual detail close-up removed from opening sequence",
@@ -381,56 +344,41 @@ const curation: Record<string, StoryCuration> = {
   },
   "bhavin-karishma": {
     quote: editorialLines["bhavin-karishma"],
-    coverSrc: "/drive-media/bhavin-karishma/sangeet/bhavin-karishma-sangeet-348.webp",
+    coverSrc: "/drive-media/bhavin-karishma/haldi/bhavin-karishma-haldi-300.webp",
     heroSrc: "/drive-media/bhavin-karishma/wedding/bhavin-karishma-wedding-419.webp",
-    cardImagePublicId: "/drive-media/bhavin-karishma/sangeet/bhavin-karishma-sangeet-348.webp",
-    cardImageFocalPoint: "couple faces centered in close evening portrait",
+    cardImagePublicId: "/drive-media/bhavin-karishma/haldi/bhavin-karishma-haldi-300.webp",
+    cardImageFocalPoint: "couple centered",
     heroPrimaryPublicId: "/drive-media/bhavin-karishma/wedding/bhavin-karishma-wedding-419.webp",
     heroSecondaryPublicIds: [
-      "/drive-media/bhavin-karishma/sangeet/bhavin-karishma-sangeet-348.webp",
+      "/drive-media/bhavin-karishma/haldi/bhavin-karishma-haldi-300.webp",
       "/drive-media/bhavin-karishma/sangeet/bhavin-karishma-sangeet-346.webp"
     ],
     opening: {
-      left: "/drive-media/bhavin-karishma/sangeet/bhavin-karishma-sangeet-348.webp",
+      left: "/drive-media/bhavin-karishma/haldi/bhavin-karishma-haldi-300.webp",
       center: "/drive-media/bhavin-karishma/wedding/bhavin-karishma-wedding-419.webp",
       right: "/drive-media/bhavin-karishma/sangeet/bhavin-karishma-sangeet-346.webp"
     },
     finalLimit: 60,
-    focalPoints: {
-      "/drive-media/bhavin-karishma/sangeet/bhavin-karishma-sangeet-348.webp": {
-        objectPosition: "50% 38%",
-        cropDesktop: "50% 38%",
-        cropTablet: "50% 37%",
-        cropMobile: "50% 35%"
-      },
-      "/drive-media/bhavin-karishma/wedding/bhavin-karishma-wedding-419.webp": {
-        objectPosition: "50% 36%",
-        cropDesktop: "50% 36%",
-        cropTablet: "50% 35%",
-        cropMobile: "50% 33%"
-      }
-    },
     exclude: {
       "/drive-media/bhavin-karishma/haldi/bhavin-karishma-haldi-296.webp": "individual bride portrait removed from primary story use",
-      "/drive-media/bhavin-karishma/haldi/bhavin-karishma-haldi-299.webp": "jewellery detail excluded from primary story flow",
-      "/drive-media/bhavin-karishma/haldi/bhavin-karishma-haldi-300.webp": "father/relative-forward haldi frame removed from story card and opening use"
+      "/drive-media/bhavin-karishma/haldi/bhavin-karishma-haldi-299.webp": "jewellery detail excluded from primary story flow"
     }
   },
   "sunil-vaishnavi": {
     quote: editorialLines["sunil-vaishnavi"],
-    coverSrc: "/drive-media/sunil-vaishnavi/wedding/sunil-vaishnavi-wedding-1123.webp",
-    heroSrc: "/drive-media/sunil-vaishnavi/wedding/sunil-vaishnavi-wedding-1123.webp",
-    cardImagePublicId: "/drive-media/sunil-vaishnavi/wedding/sunil-vaishnavi-wedding-1123.webp",
-    cardImageFocalPoint: "couple centered in daylight walking portrait",
-    heroPrimaryPublicId: "/drive-media/sunil-vaishnavi/wedding/sunil-vaishnavi-wedding-1123.webp",
+    coverSrc: "/drive-media/sunil-vaishnavi/wedding/sunil-vaishnavi-wedding-1122.webp",
+    heroSrc: "/drive-media/sunil-vaishnavi/wedding/sunil-vaishnavi-wedding-1122.webp",
+    cardImagePublicId: "/drive-media/sunil-vaishnavi/wedding/sunil-vaishnavi-wedding-1122.webp",
+    cardImageFocalPoint: "couple centered in full-length wedding portrait",
+    heroPrimaryPublicId: "/drive-media/sunil-vaishnavi/wedding/sunil-vaishnavi-wedding-1122.webp",
     heroSecondaryPublicIds: [
-      "/drive-media/sunil-vaishnavi/wedding/sunil-vaishnavi-wedding-1122.webp",
-      "/drive-media/sunil-vaishnavi/wedding/sunil-vaishnavi-wedding-1076.webp"
+      "/drive-media/sunil-vaishnavi/wedding/sunil-vaishnavi-wedding-1123.webp",
+      "/drive-media/sunil-vaishnavi/wedding/sunil-vaishnavi-wedding-1091.webp"
     ],
     opening: {
-      left: "/drive-media/sunil-vaishnavi/wedding/sunil-vaishnavi-wedding-1122.webp",
-      center: "/drive-media/sunil-vaishnavi/wedding/sunil-vaishnavi-wedding-1123.webp",
-      right: "/drive-media/sunil-vaishnavi/wedding/sunil-vaishnavi-wedding-1076.webp"
+      left: "/drive-media/sunil-vaishnavi/wedding/sunil-vaishnavi-wedding-1123.webp",
+      center: "/drive-media/sunil-vaishnavi/wedding/sunil-vaishnavi-wedding-1122.webp",
+      right: "/drive-media/sunil-vaishnavi/wedding/sunil-vaishnavi-wedding-1091.webp"
     },
     finalLimit: 54,
     focalPoints: {
@@ -441,14 +389,14 @@ const curation: Record<string, StoryCuration> = {
         cropMobile: "50% 34%"
       },
       "/drive-media/sunil-vaishnavi/wedding/sunil-vaishnavi-wedding-1123.webp": {
-        objectPosition: "50% 39%",
-        cropDesktop: "50% 39%",
+        objectPosition: "50% 38%",
+        cropDesktop: "50% 38%",
         cropTablet: "50% 38%",
         cropMobile: "50% 36%"
       },
-      "/drive-media/sunil-vaishnavi/wedding/sunil-vaishnavi-wedding-1076.webp": {
-        objectPosition: "50% 43%",
-        cropDesktop: "50% 43%",
+      "/drive-media/sunil-vaishnavi/wedding/sunil-vaishnavi-wedding-1091.webp": {
+        objectPosition: "50% 42%",
+        cropDesktop: "50% 42%",
         cropTablet: "50% 42%",
         cropMobile: "50% 40%"
       }
@@ -458,9 +406,7 @@ const curation: Record<string, StoryCuration> = {
       "/drive-media/sunil-vaishnavi/haldi/sunil-vaishnavi-haldi-1015.webp": "venue exterior removed from primary story use",
       "/drive-media/sunil-vaishnavi/haldi/sunil-vaishnavi-haldi-1016.webp": "ceremony sign removed from rendered story",
       "/drive-media/sunil-vaishnavi/haldi/sunil-vaishnavi-haldi-1017.webp": "decor detail removed from rendered story",
-      "/drive-media/sunil-vaishnavi/wedding/sunil-vaishnavi-wedding-1081.webp": "family-forward frame removed from story card and opening use",
-      "/drive-media/sunil-vaishnavi/wedding/sunil-vaishnavi-wedding-1091.webp": "family/group frame removed from opening use",
-      "/drive-media/sunil-vaishnavi/wedding/sunil-vaishnavi-wedding-1099.webp": "groom-with-child frame removed from opening use"
+      "/drive-media/sunil-vaishnavi/wedding/sunil-vaishnavi-wedding-1081.webp": "family-forward frame removed from story card and opening use"
     }
   }
 };

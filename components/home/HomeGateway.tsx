@@ -33,7 +33,6 @@ export function HomeGateway() {
                   <span className="gateway-row__title">{item.title}</span>
                   <span className="gateway-row__desc">{item.description}</span>
                 </span>
-                <span className="gateway-row__arrow" aria-hidden="true">-&gt;</span>
               </Link>
             ))}
           </div>

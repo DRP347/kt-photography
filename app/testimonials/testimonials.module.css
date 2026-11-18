@@ -1,0 +1,37 @@
+/* The quotation and its choices share the right-hand editorial measure. */
+.collection { --review-size: clamp(21px, 1.65vw, 24px); width: min(1160px, 86%); min-height: calc(100svh - var(--page-header-height)); margin-inline: auto; padding-block: clamp(24px, 3vw, 40px) clamp(32px, 4vw, 56px); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 52ch); column-gap: clamp(40px, 6vw, 88px); font-size: var(--review-size); }
+.intro { align-self: start; }
+.intro h1 { margin-top: 12px; }
+.context { margin-top: 28px; max-width: 24ch; color: var(--muted); font: 400 13px/1.6 var(--font-body); }
+.stage { display: grid; grid-template-rows: auto 1fr; gap: 32px; min-width: 0; padding-top: 44px; }
+.navigation { display: flex; align-items: stretch; justify-content: space-between; gap: 20px; }
+.navigation button { display: flex; align-items: baseline; gap: 10px; padding: 12px 0; min-height: 44px; border: 0; border-bottom: 1px solid transparent; background: transparent; color: var(--muted); font: 400 13px/1.5 var(--font-body); text-align: left; }
+.number { font-size: 10px; font-variant-numeric: tabular-nums; }
+.navigation button[aria-pressed="true"], .navigation button:hover { color: var(--ink); border-bottom-color: var(--ink); }
+.review { display: grid; touch-action: pan-y pinch-zoom; align-self: center; padding-block: 20px 40px; }
+/* Reserve the tallest review, with every quotation starting at the same origin. */
+.reviewPanel { grid-area: 1 / 1; align-self: start; }
+.reviewPanel[aria-hidden="true"] { visibility: hidden; pointer-events: none; }
+.selected.selected blockquote { width: 100%; max-width: none; font: 400 var(--review-size)/1.55 var(--font-body); color: var(--ink); }
+.selected.selected figcaption { margin-top: 28px; gap: 8px 28px; }
+.selected :global(.client-review__name) { font-size: 14px; letter-spacing: .02em; }
+@media (min-width: 901px) and (max-width: 1100px) {
+  .collection { grid-template-columns: minmax(0, 1fr) minmax(0, 1.7fr); gap: 40px; }
+  .navigation { gap: 14px; }
+  .navigation button { gap: 6px; }
+}
+@media (max-width: 900px) {
+  .collection { --review-size: 21px; grid-template-columns: 1fr; grid-template-rows: auto 1fr; row-gap: 28px; }
+  .context { margin-top: 16px; max-width: none; }
+  .stage { width: 100%; padding-top: 0; gap: 24px; }
+  .review { padding-block: 16px 24px; }
+}
+@media (max-width: 600px) {
+  .collection { --review-size: 19px; width: calc(100% - 40px); padding-block: 24px 32px; }
+  .navigation { gap: 14px; }
+  .navigation button { gap: 6px; font-size: 12px; }
+  .selected.selected figcaption { margin-top: 24px; gap: 8px 20px; }
+  .review { padding-block: 8px 16px; }
+}
+
+.review[data-dragging="true"] { cursor: grabbing; user-select: none; }

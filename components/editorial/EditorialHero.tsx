@@ -35,7 +35,7 @@ export function EditorialHero() {
             </div>
 
             <Link href="/stories" className="text-link hero-meta-right">
-              View stories <span aria-hidden="true">→</span>
+              View stories
             </Link>
           </div>
         </div>

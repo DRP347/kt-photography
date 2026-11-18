@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
 import { body, saonara } from "@/app/fonts";
-import { SiteFrame } from "@/components/layout/SiteFrame";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { absoluteUrl, siteConfig } from "@/lib/site";
-import "@/styles/globals.css";
-import "@/styles/homepage.css";
+import "@/styles/editorial.css";
 
 export const metadata: Metadata = {
+  robots: process.env.VERCEL_ENV === "preview" ? { index: false, follow: false } : undefined,
   metadataBase: new URL(siteConfig.siteUrl),
   title: {
     default: siteConfig.defaultTitle,
@@ -54,7 +53,6 @@ export default function RootLayout({
     <html lang={siteConfig.language} className={`${saonara.variable} ${body.variable}`}>
       <body>
         <a className="skip-link" href="#main">Skip to content</a>
-        <SiteFrame />
         <SiteHeader />
         {children}
       </body>

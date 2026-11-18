@@ -1,0 +1,7 @@
+.controls { display: flex; align-items: center; gap: 8px; }
+.progress { margin-right: 20px; font: 400 12px/1.5 var(--font-body); font-variant-numeric: tabular-nums; letter-spacing: .08em; white-space: nowrap; }
+.slash { color: var(--muted); margin-inline: 6px; }
+.controls button { display: grid; place-items: center; width: 44px; height: 44px; padding: 0; background: transparent; border: 1px solid var(--rule); font: 400 21px/1 var(--font-body); transition: border-color 160ms ease; }
+.controls button:hover:not([aria-disabled="true"]) { border-color: var(--ink); }
+.controls button[aria-disabled="true"] { opacity: .35; cursor: default; }
+@media (prefers-reduced-motion: reduce) { .controls button { transition: none; } }

@@ -1,0 +1,7 @@
+.frame { --page-header-height: calc(var(--header-height) + 1px); position: relative; display: flow-root; isolation: isolate; }
+.opening { position: relative; z-index: 1; display: grid; align-items: center; min-height: calc(100svh - var(--page-header-height)); background: var(--paper); }
+.incoming { position: relative; z-index: 2; display: flow-root; background: var(--paper); }
+@media (min-width: 901px) and (prefers-reduced-motion: no-preference) {
+  .opening { position: sticky; top: min(var(--page-header-height), calc(100svh - var(--editorial-height, 100svh))); }
+  .incoming { min-height: calc(100svh - var(--page-header-height)); display: grid; align-items: center; }
+}

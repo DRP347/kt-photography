@@ -1,78 +1,32 @@
 import type { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
-import type { CSSProperties } from "react";
-import { StoriesHeroSlideshow } from "@/components/editorial/StoriesHeroSlideshow";
 import { FooterArchive } from "@/components/layout/FooterArchive";
-import { coupleStoryManifests, getPublicStorySlug, stories, storiesHeroSlides, storyDisplayOrder } from "@/data/archive";
+import { BookingRoom } from "@/components/editorial/BookingRoom";
+import { StoriesCollection } from "@/components/editorial/StoriesCollection";
+import { Reveal } from "@/components/motion/Reveal";
+import { coupleStoryManifests, stories, storyDisplayOrder } from "@/data/archive";
 import { getCuratedStory } from "@/data/storyCuration";
 import { absoluteUrl } from "@/lib/site";
+import "@/styles/stories-index.css";
 
 export const metadata: Metadata = {
   title: "Wedding Stories",
-  description: "A living archive of real wedding stories photographed by KT Photography.",
-  alternates: {
-    canonical: absoluteUrl("/stories")
-  }
+  description: "Fleeting moments, honest emotions, and wedding stories that stay with us. Explore the photography archive of KT Photography.",
+  alternates: { canonical: absoluteUrl("/stories") }
 };
-
-const orderedStories = [
-  ...storyDisplayOrder
-    .map((slug) => stories.find((story) => story.slug === slug))
-    .filter((story): story is (typeof stories)[number] => Boolean(story)),
-  ...stories.filter((story) => !storyDisplayOrder.includes(story.slug))
-].map((story) => getCuratedStory(story, coupleStoryManifests[story.slug]));
+const ordered = [...storyDisplayOrder.map(slug => stories.find(story => story.slug === slug)).filter((story): story is (typeof stories)[number] => Boolean(story)), ...stories.filter(story => !storyDisplayOrder.includes(story.slug))];
 
 export default function StoriesPage() {
-  return (
-    <>
-      <main id="main" className="stories-index">
-        <section className="stories-hero" aria-label="Featured wedding story slideshow">
-          <div className="story-container stories-hero__inner">
-            <StoriesHeroSlideshow slides={storiesHeroSlides} />
-          </div>
-        </section>
-
-        <section className="stories-archive" id="story-archive" aria-labelledby="stories-heading">
-          <div className="story-container stories-archive__intro">
-            <p className="type-kicker">Couple stories</p>
-            <h1 id="stories-heading">
-              <span>Real wedding stories,</span>
-              {" "}
-              <span>held close.</span>
-            </h1>
-          </div>
-          <div className="story-container stories-archive__grid">
-            {orderedStories.map((story) => (
-              <article className="stories-archive-card" key={story.slug}>
-                <Link
-                  className="stories-archive-card__link"
-                  href={`/stories/${getPublicStorySlug(story.slug)}`}
-                  aria-label={`View ${story.coupleName} story`}
-                >
-                  <span className="stories-archive-card__image">
-                    <Image
-                      src={story.cover.src}
-                      alt={story.cover.alt}
-                      fill
-                      sizes="(max-width: 700px) calc(100vw - 50px), (max-width: 1100px) calc((100vw - 88px) / 2), 360px"
-                      style={
-                        {
-                          "--crop-desktop": story.cover.cropDesktop ?? story.cover.objectPosition ?? "50% 50%",
-                          "--crop-tablet": story.cover.cropTablet ?? story.cover.cropDesktop ?? story.cover.objectPosition ?? "50% 50%",
-                          "--crop-mobile": story.cover.cropMobile ?? story.cover.cropTablet ?? story.cover.cropDesktop ?? story.cover.objectPosition ?? "50% 50%"
-                        } as CSSProperties
-                      }
-                    />
-                  </span>
-                  <span className="stories-archive-card__name type-couple">{story.coupleName}</span>
-                </Link>
-              </article>
-            ))}
-          </div>
-        </section>
-      </main>
-      <FooterArchive />
-    </>
-  );
+  const previews = ordered.map(base => {
+    const story = getCuratedStory(base, coupleStoryManifests[base.slug]);
+    return { slug: story.slug, coupleName: story.coupleName, cover: story.cover };
+  });
+  return <><main id="main" className="stories-index">
+    <header className="stories-index__lead site-rail"><Reveal>
+      <p className="type-kicker">The stories we keep</p>
+      <h1>Every love story deserves<br className="stories-index__break" /> to be remembered.</h1>
+      <p className="stories-index__description">A collection of fleeting moments, honest emotions,<br /> and stories that stay with us.</p>
+    </Reveal></header>
+    <section className="stories-index__collection site-rail" aria-label="Wedding photography archive"><StoriesCollection stories={previews} /></section>
+    <BookingRoom />
+  </main><FooterArchive /></>;
 }

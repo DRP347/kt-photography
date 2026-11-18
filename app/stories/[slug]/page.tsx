@@ -1,21 +1,19 @@
+import { StoryOpening } from "@/components/editorial/StoryOpening";
+import { Reveal } from "@/components/motion/Reveal";
 import type { Metadata } from "next";
-import Image from "next/image";
+import Link from "next/link";
 import { notFound } from "next/navigation";
-import type { CSSProperties } from "react";
 import { BookingRoom } from "@/components/editorial/BookingRoom";
 import { StoryFilmTile } from "@/components/editorial/StoryFilmTile";
 import { StoryShareButton } from "@/components/editorial/StoryShareButton";
-import type { OpeningTriptych, StoryFunction, StoryImage, StoryModule } from "@/data/archive";
-import { coupleStoryManifests, films, getFilm, getPublicStorySlug, getStory, stories } from "@/data/archive";
+import { FooterArchive } from "@/components/layout/FooterArchive";
+import { ArchivePhoto } from "@/components/rebuild/ArchivePhoto";
+import { coupleStoryManifests, films, getFilm, getStory, stories, type StoryImage } from "@/data/archive";
 import { getCuratedManifest, getCuratedStory } from "@/data/storyCuration";
 import { absoluteUrl } from "@/lib/site";
-
-type StoryPageProps = {
-  params: Promise<{ slug: string }>;
-};
-
+type StoryPageProps = { params: Promise<{ slug: string }> };
 export function generateStaticParams() {
-  return stories.map((story) => ({ slug: getPublicStorySlug(story.slug) }));
+  return stories.map((story) => ({ slug: story.slug }));
 }
 
 export async function generateMetadata({ params }: StoryPageProps): Promise<Metadata> {
@@ -29,12 +27,12 @@ export async function generateMetadata({ params }: StoryPageProps): Promise<Meta
     title: `${curatedStory.coupleName} Wedding Story`,
     description: curatedStory.intro,
     alternates: {
-      canonical: absoluteUrl(`/stories/${getPublicStorySlug(curatedStory.slug)}`)
+      canonical: absoluteUrl(`/stories/${curatedStory.slug}`)
     },
     openGraph: {
       title: `${curatedStory.coupleName} Wedding Story | KT Photography`,
       description: curatedStory.intro,
-      url: absoluteUrl(`/stories/${getPublicStorySlug(curatedStory.slug)}`),
+      url: absoluteUrl(`/stories/${curatedStory.slug}`),
       images: [
         {
           url: curatedStory.cover.src,
@@ -45,211 +43,59 @@ export async function generateMetadata({ params }: StoryPageProps): Promise<Meta
   };
 }
 
-const defaultStoryLines: Record<string, string> = {
-  "aamir-binish": "The quiet stayed inside the chaos.",
-  "amrith-chetali": "Held gently between laughter and light.",
-  "monika-aman": "Softly held, never performed.",
-  "dhavani-gaurav": "A place, a pause, and the day around them.",
-  "saurav-khushboo": "Colour, family, and the quiet after.",
-  "kunal-aditi": "Patient frames from ceremony and portraiture.",
-  "jay-riya": "A compact moving-memory story.",
-  "mayank-rajeshree": "People, rituals, and the in-between.",
-  "bhavin-karishma": "A wedding story held in ceremony order.",
-  "sunil-vaishnavi": "Haldi and sangeet held close."
-};
 
-function uniqueImages(images: StoryImage[]) {
-  const seen = new Set<string>();
-  return images.filter((image) => {
-    if (seen.has(image.src)) return false;
-    seen.add(image.src);
-    return true;
-  });
+function imageRatio(image: StoryImage) {
+  return (image.width ?? (image.orientation === "portrait" ? 1200 : 1800)) / (image.height ?? (image.orientation === "portrait" ? 1800 : 1200));
 }
 
-function buildFallbackFunctions(story: NonNullable<ReturnType<typeof getStory>>): StoryFunction[] {
-  return [
-    {
-      id: "story",
-      label: story.events.join(" / "),
-      order: 1,
-      layoutPattern: "F",
-      images: uniqueImages([story.hero, story.cover, ...story.gallery])
-    }
-  ];
-}
-
-function getFrameClass(image: StoryImage, index: number, groupIndex: number) {
-  const role = image.layoutRole;
-
-  if (role === "panoramic") return "couple-story-frame couple-story-frame--panoramic";
-  if (role === "wide") return "couple-story-frame couple-story-frame--wide";
-  if (role === "feature") return "couple-story-frame couple-story-frame--feature";
-  if (role === "detail") return "couple-story-frame couple-story-frame--detail";
-  if (role === "portrait") return "couple-story-frame couple-story-frame--portrait";
-  if (image.importance === "feature") return "couple-story-frame couple-story-frame--feature";
-  if (image.orientation === "portrait") return "couple-story-frame couple-story-frame--portrait";
-  if ((index + groupIndex) % 5 === 0) return "couple-story-frame couple-story-frame--wide";
-  return "couple-story-frame couple-story-frame--standard";
-}
-
-function getSizes(image: StoryImage) {
-  if (image.layoutRole === "panoramic" || image.layoutRole === "wide" || image.layoutRole === "feature") {
-    return "(max-width: 700px) calc(100vw - 32px), (max-width: 1100px) calc(100vw - 64px), 72vw";
+// Justified rows keep source proportions and reading order without cropping.
+function albumRows(images: StoryImage[]) {
+  const rows: StoryImage[][] = [];
+  let row: StoryImage[] = [];
+  for (const image of images) {
+    row.push(image);
+    const ratio = row.reduce((sum, item) => sum + imageRatio(item), 0);
+    if (ratio >= 2.65 || row.length === 4) { rows.push(row); row = []; }
   }
-
-  return "(max-width: 700px) calc((100vw - 36px) / 2), (max-width: 1100px) calc((100vw - 76px) / 2), 32vw";
+  if (row.length) rows.push(row);
+  return rows;
 }
-
-function getImageStyle(image: StoryImage) {
-  return {
-    "--crop-desktop": image.cropDesktop ?? image.objectPosition ?? "50% 50%",
-    "--crop-tablet": image.cropTablet ?? image.cropDesktop ?? image.objectPosition ?? "50% 50%",
-    "--crop-mobile": image.cropMobile ?? image.cropTablet ?? image.cropDesktop ?? image.objectPosition ?? "50% 50%"
-  } as CSSProperties;
-}
-
-function getOpeningEntries(opening: OpeningTriptych) {
-  return [
-    { slot: "left", image: opening.left },
-    { slot: "center", image: opening.center },
-    { slot: "right", image: opening.right }
-  ] as const;
-}
-
-function getOpeningSizes(slot: "left" | "center" | "right") {
-  if (slot === "center") {
-    return "(max-width: 700px) calc(100vw - 28px), (max-width: 1100px) calc(100vw - 64px), 44vw";
-  }
-
-  return "(max-width: 700px) calc((100vw - 36px) / 2), (max-width: 1100px) calc((100vw - 76px) / 2), 22vw";
-}
-
-function getModuleSizes(module: StoryModule, image: StoryImage, index: number) {
-  if (module.module === "G" || image.layoutRole === "wide" || image.layoutRole === "feature" || index === 1) {
-    return "(max-width: 700px) calc(100vw - 28px), (max-width: 1100px) calc(100vw - 64px), 58vw";
-  }
-
-  return "(max-width: 700px) calc((100vw - 36px) / 2), (max-width: 1100px) calc((100vw - 76px) / 2), 28vw";
-}
-
 export default async function StoryPage({ params }: StoryPageProps) {
   const { slug } = await params;
-  const baseStory = getStory(slug);
-  if (!baseStory) notFound();
+  const base = getStory(slug);
+  if (!base) notFound();
+  const manifest = getCuratedManifest(base, coupleStoryManifests[base.slug]);
+  const story = getCuratedStory(base, coupleStoryManifests[base.slug]);
+  const film = story.filmSlug ? getFilm(story.filmSlug) : films.find(item => item.coupleName === story.coupleName);
+  const functions = manifest?.functions.length ? [...manifest.functions].sort((a,b) => a.order - b.order) : [{ id: "story", label: story.events.join(" / "), images: story.gallery }];
+  const opening = manifest?.openingTriptych;
+  // Prefer only already-curated opening photographs, keeping chapter order intact.
+  const candidates = [opening?.center, opening?.left, opening?.right, story.hero]
+    .filter((image): image is StoryImage => Boolean(image))
+    .filter((image, index, images) => images.findIndex(item => item.src === image.src) === index);
+  const landscape = candidates.find(image => image.orientation === "landscape");
+  const openingImages = landscape ? [landscape] : candidates.slice(0, 2);
+  const seen = new Set(openingImages.map(image => image.src));
+  const chapters = functions.map(chapter => ({ ...chapter, images: chapter.images.filter(image => { if (seen.has(image.src)) return false; seen.add(image.src); return true; }) })).filter(chapter => chapter.images.length);
+  const index = stories.findIndex(item => item.slug === base.slug);
+  const next = stories[(index + 1) % stories.length];
+  const previous = stories[(index + stories.length - 1) % stories.length];
+  return <><main id="main" className="couple-story">
+    <header className="page-intro site-rail"><Reveal><p className="type-kicker">Wedding story</p><h1>{story.coupleName}</h1></Reveal></header>
+    <div className="story-photographs site-rail">
+    <StoryOpening paired={openingImages.length === 2}>
+      {openingImages.map(image => <figure key={image.src}><ArchivePhoto image={image} priority sizes={openingImages.length === 2 ? "(max-width:700px) 92vw, 44vw" : "(max-width:1700px) 88vw, 1480px"} /></figure>)}
+    </StoryOpening>
+    <div className="story-album">{chapters.map(chapter => <div key={chapter.id} className="story-group">
 
-  const manifest = getCuratedManifest(baseStory, coupleStoryManifests[baseStory.slug]);
-  const story = getCuratedStory(baseStory, manifest);
-  const manifestFilm =
-    manifest?.film?.localVideoUrl && manifest.film.poster
-      ? {
-          title: manifest.film.title ?? "The Wedding Film",
-          poster: manifest.film.poster,
-          localVideoUrl: manifest.film.localVideoUrl
-        }
-      : null;
-  const film =
-    manifestFilm ??
-    (story.filmSlug ? getFilm(story.filmSlug) : films.find((item) => item.coupleName === story.coupleName));
-  const filmYoutubeUrl = film && "youtubeUrl" in film ? film.youtubeUrl : undefined;
-  const functions = (manifest?.functions ?? buildFallbackFunctions(story)).sort((a, b) => a.order - b.order);
-  const quote = manifest?.quote ?? defaultStoryLines[story.slug] ?? story.note;
-  const firstPrioritySrc = functions[0]?.images[0]?.src;
-  const openingTriptych = manifest?.openingTriptych;
-
-  return (
-    <main id="main" className="couple-story">
-      <section className="couple-story-intro" aria-labelledby="couple-story-title">
-        <h1 id="couple-story-title">{story.coupleName}</h1>
-        <p>{quote}</p>
-      </section>
-
-      {openingTriptych ? (
-        <section className="couple-story-opening" aria-label={`${story.coupleName} opening portraits`}>
-          {getOpeningEntries(openingTriptych).map(({ slot, image }) => (
-            <figure className={`couple-story-opening__frame couple-story-opening__frame--${slot}`} key={image.src}>
-              <Image
-                src={image.src}
-                alt={image.alt}
-                fill
-                priority
-                sizes={getOpeningSizes(slot)}
-                style={getImageStyle(image)}
-              />
-            </figure>
-          ))}
-        </section>
-      ) : null}
-
-      <section className="couple-story-gallery" aria-label={`${story.coupleName} wedding album`}>
-        {functions.map((storyFunction, groupIndex) => (
-          <div
-            className={`couple-story-group couple-story-group--${storyFunction.layoutPattern?.toLowerCase() ?? "fallback"}`}
-            data-function={storyFunction.id}
-            key={storyFunction.id}
-          >
-            {storyFunction.modules?.length ? (
-              <div className="couple-story-modules">
-                {storyFunction.modules.map((module) => (
-                  <div
-                    className={`couple-story-module couple-story-module--${module.module.toLowerCase()}`}
-                    data-module={module.module}
-                    key={module.id}
-                  >
-                    {module.images.map((image, imageIndex) => (
-                      <figure
-                        className={`couple-story-frame couple-story-module__frame couple-story-module__frame--${imageIndex + 1}`}
-                        data-orientation={image.orientation}
-                        key={`${module.id}-${image.src}`}
-                      >
-                        <Image
-                          src={image.src}
-                          alt={image.alt}
-                          fill
-                          priority={!openingTriptych && image.src === firstPrioritySrc}
-                          sizes={getModuleSizes(module, image, imageIndex)}
-                          style={getImageStyle(image)}
-                        />
-                      </figure>
-                    ))}
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="couple-story-mosaic">
-                {storyFunction.images.map((image, imageIndex) => (
-                  <figure
-                    className={getFrameClass(image, imageIndex, groupIndex)}
-                    data-orientation={image.orientation}
-                    key={`${storyFunction.id}-${image.src}`}
-                  >
-                    <Image
-                      src={image.src}
-                      alt={image.alt}
-                      fill
-                      priority={!openingTriptych && image.src === firstPrioritySrc}
-                      sizes={getSizes(image)}
-                      style={getImageStyle(image)}
-                    />
-                  </figure>
-                ))}
-              </div>
-            )}
-          </div>
-        ))}
-
-        {film ? (
-          <div className="couple-story-film">
-            <StoryFilmTile title={film.title} poster={film.poster} videoSrc={film.localVideoUrl} youtubeUrl={filmYoutubeUrl} />
-          </div>
-        ) : null}
-      </section>
-
-      <div className="couple-story-tools" aria-label="Story controls">
-        <StoryShareButton title={`${story.coupleName} wedding story by KT Photography`} />
-      </div>
-
-      <BookingRoom />
-    </main>
-  );
+      {albumRows(chapter.images).map((row, rowIndex) => <div className="album-row album-row--compact" key={`${chapter.id}-${rowIndex}`} style={{ gridTemplateColumns: [...row.map(image => `${imageRatio(image)}fr`), ...(row.reduce((sum, image) => sum + imageRatio(image), 0) < 2 ? ["1fr"] : [])].join(" ") }}>
+        {row.map(image => <figure key={image.src}><ArchivePhoto image={image} sizes="(max-width: 700px) 92vw, (max-width: 1100px) 44vw, 500px" /></figure>)}
+      </div>)}
+    </div>)}</div>
+    </div>
+    {film && <section className="story-film site-rail" aria-label={`${story.coupleName} film`}><StoryFilmTile title={`${story.coupleName} ${film.title}`} poster={film.poster} videoSrc={film.localVideoUrl} youtubeUrl={film.youtubeUrl} /></section>}
+    <div className="story-tools site-rail"><Link className="text-link" href="/stories">Back to stories</Link><StoryShareButton title={`${story.coupleName} wedding story by KT Photography`} /></div>
+    <nav className="story-pagination site-rail" aria-label="Browse wedding stories"><Link href={`/stories/${previous.slug}`}><span className="type-kicker">Previous story</span><span>{previous.coupleName}</span></Link><Link href={`/stories/${next.slug}`}><span className="type-kicker">Next story</span><span>{next.coupleName}</span></Link></nav>
+    <BookingRoom />
+  </main><FooterArchive /></>;
 }

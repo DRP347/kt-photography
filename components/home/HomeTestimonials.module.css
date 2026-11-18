@@ -1,0 +1,14 @@
+.preview { width: min(1160px, 86%); margin-inline: auto; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); row-gap: clamp(28px, 4vw, 48px); }
+.heading { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr auto; align-items: baseline; gap: 12px 24px; }
+.heading > p { grid-column: 1 / -1; }
+.heading a { min-height: 44px; }
+.review { grid-column: 5 / -1; }
+.review.review blockquote { max-width: 52ch; font-size: clamp(21px, 1.75vw, 25px); line-height: 1.55; }
+.review :global(.client-review__name) { font-size: 14px; }
+@media (max-width: 1000px) { .review { grid-column: 3 / -1; } }
+@media (max-width: 700px) {
+  .preview { width: calc(100% - 40px); row-gap: 28px; }
+  .heading { gap: 10px 16px; }
+  .review { grid-column: 1 / -1; }
+  .review.review blockquote { font-size: 19px; }
+}

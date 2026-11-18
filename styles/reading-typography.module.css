@@ -1,0 +1,24 @@
+/* Match the approved Stories page title and homepage Stories heading exactly.
+   Body copy continues to use --body-size / --body-leading from editorial.css. */
+.pageTitle {
+  font-size: clamp(48px, 4.5vw, 68px);
+  line-height: var(--heading-leading);
+  letter-spacing: .025em;
+}
+.sectionTitle.sectionTitle {
+  font-size: clamp(30px, 3.65vw, 66px);
+  line-height: var(--heading-leading);
+  letter-spacing: .025em;
+}
+@media (max-width: 1024px) {
+  .pageTitle { font-size: clamp(36px, 4.8vw, 52px); }
+}
+@media (min-width: 701px) and (max-width: 1000px) {
+  .sectionTitle.sectionTitle { font-size: 4.5vw; }
+}
+@media (max-width: 700px) {
+  .sectionTitle.sectionTitle { font-size: clamp(32px, 8.5vw, 48px); }
+}
+@media (max-width: 600px) {
+  .pageTitle { font-size: clamp(32px, 8.7vw, 42px); }
+}

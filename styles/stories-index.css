@@ -1,0 +1,29 @@
+/* Compact, aligned contact sheet; all ten approved stories stay in reading order. */
+.stories-index__lead { width: min(1160px, 86%); }
+.stories-index__collection { width: min(1160px, 86%); }
+.stories-index__lead { padding-block: clamp(28px, 3vw, 44px) 28px; text-align: left; }
+.stories-index__lead h1 { max-width: none; margin: 14px 0 18px; font-size: clamp(48px, 4.5vw, 68px); line-height: var(--heading-leading); letter-spacing: .025em; text-wrap: initial; }
+.stories-index__description { color: var(--muted); font-size: 16px; line-height: 1.5; }
+.stories-index__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.stories-index__entry-link { display: block; }
+.stories-index__image { position: relative; height: auto; aspect-ratio: 1.44; overflow: hidden; background: var(--paper); }
+.stories-index__image img { object-fit: cover; transition: transform 550ms var(--ease); }
+/* Near-square frames retain both subjects in the approved landscape covers. */
+.stories-index__image--landscape img { object-fit: cover; }
+/* The approved composite has a verified matte: fit the photograph proportionally. */
+.stories-index__image--matte img { width: 209.913% !important; height: auto !important; max-width: none; left: -54.956% !important; top: 0 !important; object-fit: contain; transform: translateY(-25.889%); }
+.stories-index__entry-link:hover .stories-index__image:not(.stories-index__image--matte) img { transform: scale(1.015); }
+@media (max-width: 1024px) {
+  .stories-index__lead h1 { font-size: clamp(36px, 4.8vw, 52px); }
+  .stories-index__image { height: auto; aspect-ratio: 1.18; }
+}
+@media (max-width: 600px) {
+  .stories-index__collection { width: calc(100% - 32px); }
+  .stories-index__grid { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .stories-index__lead { width: calc(100% - 32px); padding-block: 28px 22px; }
+  .stories-index__lead h1 { font-size: clamp(32px, 8.7vw, 42px); max-width: 20ch; margin-block: 14px; text-wrap: balance; }
+  .stories-index__break { display: none; }
+  .stories-index__description { max-width: 32ch; margin-inline: 0; font-size: 15px; }
+  .stories-index__description br { display: none; }
+  .stories-index__image { height: auto; aspect-ratio: 1 / 1.12; }
+}

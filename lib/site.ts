@@ -10,7 +10,7 @@ export const siteConfig = {
   locale: "en_IN",
   language: "en",
   location: "Daman / Across India",
-  email: "",
+  email: "hello@ktphotography.in",
   phoneDisplay: "+91 99742 66577",
   phoneHref: "tel:+919974266577",
   whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "919974266577",

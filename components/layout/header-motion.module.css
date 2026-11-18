@@ -1,0 +1,4 @@
+.header.header { transition: transform 210ms var(--ease), background 350ms, border-color 350ms; }
+.header[data-hidden="true"]:not(:has(:focus-visible)):not(:has([data-menu-open="true"])) { transform: translateY(-100%); }
+.header[data-instant="true"] { transition-duration: 0ms; }
+@media (prefers-reduced-motion: reduce) { .header.header { transition: none; } }

@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { ResilientImage as Image } from "@/components/media/ResilientImage";
 import type { ImageAsset } from "@/data/archive";
 
 export function ImageFrame({

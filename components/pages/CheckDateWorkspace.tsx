@@ -2,6 +2,7 @@
 
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import { buildWhatsAppEnquiryUrl } from "@/lib/booking";
 import { siteConfig } from "@/lib/site";
 
 type BookingMode = "call" | "enquiry";
@@ -14,7 +15,7 @@ function parseMode(search = ""): BookingMode {
   return value === "call" ? "call" : "enquiry";
 }
 
-export function CheckDateWorkspace() {
+export function CheckDateWorkspace({ isPreview = false }: { isPreview?: boolean }) {
   const [mode, setMode] = useState<BookingMode>("enquiry");
   const [dateStatus, setDateStatus] = useState<"known" | "not-finalised">("known");
   const [selectedEvents, setSelectedEvents] = useState<string[]>([]);
@@ -22,11 +23,11 @@ export function CheckDateWorkspace() {
   const [notice, setNotice] = useState("");
 
   const calUrl = useMemo(() => {
-    if (!siteConfig.calcomLink) return "";
+    if (isPreview || !siteConfig.calcomLink) return "";
     return siteConfig.calcomLink.startsWith("http")
       ? siteConfig.calcomLink
       : `https://cal.com/${siteConfig.calcomLink.replace(/^\/+/, "")}`;
-  }, []);
+  }, [isPreview]);
 
   useEffect(() => {
     const syncMode = () => setMode(parseMode(window.location.search));
@@ -75,28 +76,32 @@ export function CheckDateWorkspace() {
 
     setErrors(nextErrors);
     setNotice("");
-    if (Object.keys(nextErrors).length > 0) return;
-
-    const dateLine = dateStatus === "not-finalised" ? "Date not finalised" : weddingDate;
-    const message = [
-      "Hello KT Photography,",
-      "",
-      `Couple names: ${coupleNames}`,
-      `Phone: ${phone}`,
-      `Wedding date: ${dateLine}`,
-      `City / venue: ${cityVenue}`,
-      `Events: ${selectedEvents.join(", ")}`,
-      `Anything we should know: ${details || "Not shared"}`
-    ].join("\n");
-
-    const phoneNumber = siteConfig.whatsappNumber.replace(/[^\d]/g, "");
-    if (!phoneNumber) {
-      setNotice("WhatsApp is not configured yet. Please use email for now.");
+    if (Object.keys(nextErrors).length > 0) {
+      const name = Object.keys(nextErrors)[0];
+      const field = form.querySelector<HTMLElement>(`[name="${name}"]`);
+      field?.focus();
       return;
     }
 
-    window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
-    setNotice("WhatsApp opened with your details. Please review the message and press Send there.");
+    if (isPreview) {
+      setNotice("Client preview: validation passed. No enquiry was sent.");
+      return;
+    }
+
+    const dateLine = dateStatus === "not-finalised" ? "Date not finalised" : weddingDate;
+    const url = buildWhatsAppEnquiryUrl(siteConfig.whatsappNumber, {
+      coupleNames, phone, date: dateLine, cityVenue, events: selectedEvents, details
+    });
+    if (!url) {
+      setNotice("WhatsApp is not configured yet. Please use email for now.");
+      return;
+    }
+    try {
+      window.location.assign(url);
+      setNotice("Continue in WhatsApp to review your message and press Send.");
+    } catch {
+      setNotice("WhatsApp couldn’t open. Your details are still here. Try again, or contact us by email.");
+    }
   }
 
   return (
@@ -110,10 +115,11 @@ export function CheckDateWorkspace() {
             <span>you&apos;d like to begin.</span>
           </h1>
           <p>
-            Share the essentials now, or choose a conversation time if you would rather talk through the day first.
+            {isPreview ? "Explore the enquiry flow. Nothing entered here will be sent." : "Share your date, the people, and the place. We’ll continue the conversation on WhatsApp."}
           </p>
+          {isPreview ? <p role="status">Client preview: enquiries and calendar bookings are disabled.</p> : null}
 
-          <div className="check-date-modes" role="tablist" aria-label="Booking mode">
+          {calUrl ? <div className="check-date-modes" role="tablist" aria-label="Booking mode">
             <button
               type="button"
               role="tab"
@@ -136,7 +142,7 @@ export function CheckDateWorkspace() {
               <span>02</span>
               <strong>Send wedding details</strong>
             </button>
-          </div>
+          </div> : null}
         </aside>
 
         <div className="check-date-workspace__panel">
@@ -171,15 +177,15 @@ export function CheckDateWorkspace() {
 
               {Object.keys(errors).length > 0 ? (
                 <p className="check-date-form__alert" role="alert">
-                  Please check the highlighted fields before opening WhatsApp.
+                  {isPreview ? "Please check the highlighted fields." : "Please check the highlighted fields before opening WhatsApp."}
                 </p>
               ) : null}
 
               <Field label="Couple names" id="coupleNames" error={errors.coupleNames} required>
-                <input id="coupleNames" name="coupleNames" autoComplete="name" aria-invalid={Boolean(errors.coupleNames)} />
+                <input id="coupleNames" name="coupleNames" autoComplete="name" required aria-describedby={errors.coupleNames ? "coupleNames-error" : undefined} aria-invalid={Boolean(errors.coupleNames)} />
               </Field>
               <Field label="Phone number" id="phone" error={errors.phone} required>
-                <input id="phone" name="phone" type="tel" autoComplete="tel" aria-invalid={Boolean(errors.phone)} />
+                <input id="phone" name="phone" type="tel" autoComplete="tel" required aria-describedby={errors.phone ? "phone-error" : undefined} aria-invalid={Boolean(errors.phone)} />
               </Field>
 
               <fieldset className="check-date-choice">
@@ -207,6 +213,7 @@ export function CheckDateWorkspace() {
                 {dateStatus === "known" ? (
                   <>
                     <input
+                      aria-label="Wedding date or date range"
                       name="weddingDate"
                       type="text"
                       placeholder="Date or date range"
@@ -218,7 +225,7 @@ export function CheckDateWorkspace() {
               </fieldset>
 
               <Field label="City or venue" id="cityVenue" error={errors.cityVenue} required>
-                <input id="cityVenue" name="cityVenue" aria-invalid={Boolean(errors.cityVenue)} />
+                <input id="cityVenue" name="cityVenue" required aria-describedby={errors.cityVenue ? "cityVenue-error" : undefined} aria-invalid={Boolean(errors.cityVenue)} />
               </Field>
 
               <fieldset className="check-date-events">
@@ -245,11 +252,11 @@ export function CheckDateWorkspace() {
               </Field>
 
               <div className="check-date-form__submit">
-                <button type="submit" className="quiet-button">Continue to WhatsApp</button>
-                <p>
+                <button type="submit" className="booking-button">{isPreview ? "Test enquiry validation" : "Continue to WhatsApp"}</button>
+                {isPreview ? <p>Preview only. No details are sent or saved.</p> : <p>
                   We use these details only to respond to your enquiry. Read the{" "}
                   <Link href="/privacy">Privacy Policy</Link>.
-                </p>
+                </p>}
                 <p aria-live="polite">{notice}</p>
               </div>
             </form>
@@ -280,7 +287,7 @@ function Field({
         {required ? <span aria-hidden="true"> *</span> : null}
       </label>
       {children}
-      {error ? <p>{error}</p> : null}
+      {error ? <p id={`${id}-error`}>{error}</p> : null}
     </div>
   );
 }

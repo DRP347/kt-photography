@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { FilmCard } from "@/components/editorial/FilmCard";
+import { FilmArchiveGallery } from "@/components/editorial/FilmArchiveGallery";
 import { FooterArchive } from "@/components/layout/FooterArchive";
 import { films } from "@/data/archive";
 import { absoluteUrl } from "@/lib/site";
@@ -26,11 +26,7 @@ export default function FilmsPage() {
             </h1>
           </div>
 
-          <div className="films-page__list">
-            {films.map((film) => (
-              <FilmCard film={film} key={film.slug} />
-            ))}
-          </div>
+          <FilmArchiveGallery films={films.map(({ slug, coupleName, title, poster, youtubeUrl }) => ({ slug, coupleName, title, poster, youtubeUrl }))} />
         </section>
       </main>
       <FooterArchive />

@@ -1,0 +1,6 @@
+.slot { min-width: 0; }
+.frame { position: relative; overflow: hidden; display: grid; place-items: center; background: var(--paper-deep); color: var(--muted); }
+.portrait .frame { position: relative; overflow: hidden; aspect-ratio: 4 / 5; }
+.team .frame { position: relative; overflow: hidden; aspect-ratio: 4 / 3; }
+.frame span { padding: 16px; text-align: center; font: 400 12px/1.5 var(--font-body); letter-spacing: .03em; }
+.slot figcaption { margin-top: 10px; color: var(--muted); font: 400 12px/1.5 var(--font-body); letter-spacing: .03em; }

@@ -19,42 +19,25 @@ export function MobileMenu({ active = true }: MobileMenuProps) {
   const closeMenu = useCallback((returnFocus = false) => {
     setOpen(false);
     if (returnFocus) {
-      window.requestAnimationFrame(() => triggerRef.current?.focus());
+      window.requestAnimationFrame(() => triggerRef.current?.focus({ preventScroll: true }));
     }
   }, []);
 
   useEffect(() => {
-    const isOpen = open && active;
-    document.body.classList.toggle("menu-open", isOpen);
-
-    if (isOpen) {
-      scrollYRef.current = window.scrollY;
-      document.body.style.position = "fixed";
-      document.body.style.top = `-${scrollYRef.current}px`;
-      document.body.style.left = "0";
-      document.body.style.right = "0";
-      document.body.style.width = "100%";
-      document.body.style.overflow = "hidden";
-      window.requestAnimationFrame(() => closeButtonRef.current?.focus());
-    } else {
-      const lockedScrollY = scrollYRef.current;
-      document.body.style.position = "";
-      document.body.style.top = "";
-      document.body.style.left = "";
-      document.body.style.right = "";
-      document.body.style.width = "";
-      document.body.style.overflow = "";
-      if (lockedScrollY > 0) window.scrollTo(0, lockedScrollY);
-    }
-
+    if (!open || !active) return;
+    const savedScrollY = window.scrollY;
+    scrollYRef.current = savedScrollY;
+    const body = document.body;
+    const previousStyle = body.getAttribute("style");
+    body.classList.add("menu-open");
+    Object.assign(body.style, { position: "fixed", top: `-${savedScrollY}px`, left: "0", right: "0", width: "100%", overflow: "hidden" });
+    const focusFrame = window.requestAnimationFrame(() => closeButtonRef.current?.focus({ preventScroll: true }));
     return () => {
-      document.body.classList.remove("menu-open");
-      document.body.style.position = "";
-      document.body.style.top = "";
-      document.body.style.left = "";
-      document.body.style.right = "";
-      document.body.style.width = "";
-      document.body.style.overflow = "";
+      window.cancelAnimationFrame(focusFrame);
+      body.classList.remove("menu-open");
+      if (previousStyle === null) body.removeAttribute("style");
+      else body.setAttribute("style", previousStyle);
+      window.scrollTo({ top: savedScrollY, behavior: "instant" });
     };
   }, [active, open]);
 
@@ -101,13 +84,11 @@ export function MobileMenu({ active = true }: MobileMenuProps) {
     };
 
     window.addEventListener("keydown", handleKeyDown);
-    document.addEventListener("keydown", handleKeyDown);
     window.addEventListener("resize", handleResize);
     window.addEventListener("popstate", handlePopState);
 
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
-      document.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("resize", handleResize);
       window.removeEventListener("popstate", handlePopState);
     };
@@ -144,7 +125,7 @@ export function MobileMenu({ active = true }: MobileMenuProps) {
         onClick={() => closeMenu(true)}
       />
 
-      <div id="site-menu" className="menu-panel" role="dialog" aria-modal="true">
+      <div id="site-menu" className="menu-panel" role="dialog" aria-label="Site navigation" aria-modal="true">
         <div className="menu-panel-top">
           <p className="menu-kicker">KT Photography</p>
           <button ref={closeButtonRef} type="button" className="menu-close" onClick={() => closeMenu(true)}>
