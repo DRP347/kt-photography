@@ -1,5 +1,9 @@
 .frame { --page-header-height: calc(var(--header-height) + 1px); position: relative; display: flow-root; isolation: isolate; }
 .opening { position: relative; z-index: 1; display: grid; align-items: center; min-height: calc(100svh - var(--page-header-height)); background: var(--paper); }
+/* Keep Enquiry below the visible screen as mobile browser chrome retracts. */
+@supports (height: 100dvh) {
+  .opening { min-height: calc(max(100svh, 100dvh) - var(--page-header-height)); }
+}
 .incoming { position: relative; z-index: 2; display: flow-root; background: var(--paper); }
 @media (min-width: 901px) and (prefers-reduced-motion: no-preference) {
   .opening { position: sticky; top: min(var(--page-header-height), calc(100svh - var(--editorial-height, 100svh))); }

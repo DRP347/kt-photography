@@ -21,7 +21,7 @@
   .navigation button { gap: 6px; }
 }
 @media (max-width: 900px) {
-  .collection { --review-size: 21px; grid-template-columns: 1fr; grid-template-rows: auto 1fr; row-gap: 28px; }
+  .collection { --review-size: 21px; min-height: auto; align-self: start; grid-template-columns: 1fr; grid-template-rows: auto auto; row-gap: 28px; }
   .context { margin-top: 16px; max-width: none; }
   .stage { width: 100%; padding-top: 0; gap: 24px; }
   .review { padding-block: 16px 24px; }
