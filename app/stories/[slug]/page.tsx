@@ -1,6 +1,7 @@
 import { StoryOpening } from "@/components/editorial/StoryOpening";
 import { Reveal } from "@/components/motion/Reveal";
 import type { Metadata } from "next";
+import type { CSSProperties } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { BookingRoom } from "@/components/editorial/BookingRoom";
@@ -48,16 +49,35 @@ function imageRatio(image: StoryImage) {
   return (image.width ?? (image.orientation === "portrait" ? 1200 : 1800)) / (image.height ?? (image.orientation === "portrait" ? 1800 : 1200));
 }
 
-// Justified rows keep source proportions and reading order without cropping.
+// Choose row breaks for the whole event so the final photos can share a row
+// with their neighbors without moving out of sequence.
 function albumRows(images: StoryImage[]) {
-  const rows: StoryImage[][] = [];
-  let row: StoryImage[] = [];
-  for (const image of images) {
-    row.push(image);
-    const ratio = row.reduce((sum, item) => sum + imageRatio(item), 0);
-    if (ratio >= 2.65 || row.length === 4) { rows.push(row); row = []; }
+  if (images.length <= 1) return images.length ? [images] : [];
+
+  const ratios = images.map(imageRatio);
+  const costs = Array<number>(images.length + 1).fill(Infinity);
+  const sizes = Array<number>(images.length).fill(0);
+  costs[images.length] = 0;
+
+  for (let start = images.length - 2; start >= 0; start--) {
+    let ratio = ratios[start];
+    for (let end = start + 1; end < Math.min(start + 5, images.length); end++) {
+      ratio += ratios[end];
+      const size = end - start + 1;
+      // A ratio near 2.9 keeps the row at roughly one third of the rail's width.
+      // Favor smaller groups when equally balanced, with room for five portraits.
+      const cost = (2.9 / ratio - 1) ** 2 + (size === 5 ? 0.035 : 0) + costs[end + 1];
+      if (cost < costs[start]) {
+        costs[start] = cost;
+        sizes[start] = size;
+      }
+    }
   }
-  if (row.length) rows.push(row);
+
+  const rows: StoryImage[][] = [];
+  for (let start = 0; start < images.length; start += sizes[start]) {
+    rows.push(images.slice(start, start + sizes[start]));
+  }
   return rows;
 }
 export default async function StoryPage({ params }: StoryPageProps) {
@@ -88,9 +108,17 @@ export default async function StoryPage({ params }: StoryPageProps) {
     </StoryOpening>
     <div className="story-album">{chapters.map(chapter => <div key={chapter.id} className="story-group">
 
-      {albumRows(chapter.images).map((row, rowIndex) => <div className="album-row album-row--compact" key={`${chapter.id}-${rowIndex}`} style={{ gridTemplateColumns: [...row.map(image => `${imageRatio(image)}fr`), ...(row.reduce((sum, image) => sum + imageRatio(image), 0) < 2 ? ["1fr"] : [])].join(" ") }}>
-        {row.map(image => <figure key={image.src} tabIndex={-1}><ArchivePhoto image={image} retryOnError sizes="(max-width: 700px) 92vw, (max-width: 1100px) 44vw, 500px" /></figure>)}
-      </div>)}
+      {albumRows(chapter.images).map((row, rowIndex) => {
+        const ratios = row.map(imageRatio);
+        const layout = {
+          "--album-columns": ratios.map(ratio => `minmax(0, ${ratio}fr)`).join(" "),
+          "--album-row-ratio": ratios.reduce((sum, ratio) => sum + ratio, 0),
+          "--album-horizontal-gaps": `${(row.length - 1) * 4}px`,
+        } as CSSProperties;
+        return <div className="album-row album-row--compact" key={rowIndex} style={layout}>
+          {row.map(image => <figure key={image.src} tabIndex={-1}><ArchivePhoto image={image} retryOnError sizes="(max-width: 700px) 92vw, (max-width: 1100px) 44vw, 500px" /></figure>)}
+        </div>;
+      })}
     </div>)}</div>
     </div>
     {film && <section className="story-film site-rail" aria-label={`${story.coupleName} film`}><StoryFilmTile title={`${story.coupleName} ${film.title}`} poster={film.poster} videoSrc={film.localVideoUrl} youtubeUrl={film.youtubeUrl} /></section>}

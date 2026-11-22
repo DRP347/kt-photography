@@ -550,7 +550,14 @@ input[aria-invalid="true"] { border-color: #9b321f; }
 .couple-story .story-opening .archive-photo { height: auto; width: 100%; max-width: 100%; margin-inline: auto; }
 .couple-story .story-album { margin-top: 4px; }
 .couple-story .story-group { margin-top: 4px; }
-.couple-story .album-row--compact { width: 100%; gap: 4px; margin: 4px auto 0; align-items: start; }
+.couple-story .album-row--compact {
+  /* A short event can have a centered row. Cap its height instead of stretching portraits. */
+  width: min(100%, calc(var(--album-row-ratio) * min(46.5%, 580px) + var(--album-horizontal-gaps)));
+  grid-template-columns: var(--album-columns);
+  gap: 4px;
+  margin: 4px auto 0;
+  align-items: start;
+}
 .couple-story .album-row--compact .archive-photo { width: 100%; height: auto; object-fit: contain; }
 .selected-stories { position: relative; z-index: 1; transform-origin: center top; }
 @media (min-width: 701px) and (max-width: 1000px) {
@@ -560,7 +567,7 @@ input[aria-invalid="true"] { border-color: #9b321f; }
   .couple-story > .page-intro, .couple-story > .story-photographs,
   .couple-story > .story-film, .couple-story > .story-tools,
   .couple-story > .story-pagination { width: calc(100% - 32px); }
-  .couple-story .album-row--compact { grid-template-columns: 1fr !important; gap: 4px; }
+  .couple-story .album-row--compact { width: 100%; grid-template-columns: minmax(0, 1fr); }
   .couple-story .story-opening--pair { grid-template-columns: 1fr; }
   .couple-story .story-opening .archive-photo { max-height: 78svh; object-fit: contain; }
   .couple-story .album-row--compact .archive-photo { max-height: 78svh; width: auto; max-width: 100%; margin-inline: auto; }
