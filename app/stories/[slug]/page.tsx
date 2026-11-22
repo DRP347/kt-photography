@@ -84,12 +84,12 @@ export default async function StoryPage({ params }: StoryPageProps) {
     <header className="page-intro site-rail"><Reveal><p className="type-kicker">Wedding story</p><h1>{story.coupleName}</h1></Reveal></header>
     <div className="story-photographs site-rail">
     <StoryOpening paired={openingImages.length === 2}>
-      {openingImages.map(image => <figure key={image.src}><ArchivePhoto image={image} priority sizes={openingImages.length === 2 ? "(max-width:700px) 92vw, 44vw" : "(max-width:1700px) 88vw, 1480px"} /></figure>)}
+      {openingImages.map(image => <figure key={image.src} tabIndex={-1}><ArchivePhoto image={image} retryOnError priority sizes={openingImages.length === 2 ? "(max-width:700px) 92vw, 44vw" : "(max-width:1700px) 88vw, 1480px"} /></figure>)}
     </StoryOpening>
     <div className="story-album">{chapters.map(chapter => <div key={chapter.id} className="story-group">
 
       {albumRows(chapter.images).map((row, rowIndex) => <div className="album-row album-row--compact" key={`${chapter.id}-${rowIndex}`} style={{ gridTemplateColumns: [...row.map(image => `${imageRatio(image)}fr`), ...(row.reduce((sum, image) => sum + imageRatio(image), 0) < 2 ? ["1fr"] : [])].join(" ") }}>
-        {row.map(image => <figure key={image.src}><ArchivePhoto image={image} sizes="(max-width: 700px) 92vw, (max-width: 1100px) 44vw, 500px" /></figure>)}
+        {row.map(image => <figure key={image.src} tabIndex={-1}><ArchivePhoto image={image} retryOnError sizes="(max-width: 700px) 92vw, (max-width: 1100px) 44vw, 500px" /></figure>)}
       </div>)}
     </div>)}</div>
     </div>

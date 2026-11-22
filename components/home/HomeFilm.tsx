@@ -73,7 +73,7 @@ export function HomeFilm() {
 
   return <section ref={section} id="home-film" className="home-film" aria-labelledby="home-film-title">
     <div ref={plane} className="home-film__stage">
-      <div className="home-film__poster"><Image src={poster} alt="A frame from the KT Photography promo film" fill sizes="100vw" /></div>
+      <div className="home-film__poster"><Image src={poster} alt="A frame from the KT Photography promo film" fill unoptimized sizes="100vw" /></div>
       <video ref={player} className={loaded && !failed ? "is-ready" : ""} muted loop playsInline preload="none" poster={poster} aria-label="KT Photography promo film" aria-describedby="home-film-help" tabIndex={0} width={1280} height={720}
         onPlaying={() => setLoaded(true)} onError={() => setFailed(true)}
         onKeyDown={event => {

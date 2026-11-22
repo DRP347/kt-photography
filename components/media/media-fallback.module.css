@@ -9,3 +9,24 @@
 :global(.story-film-tile) > .fallback { position: absolute; inset: 0; height: 100%; }
 
 .embed:not([data-media-state="ready"]) iframe { visibility: hidden; }
+
+.galleryFallback {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 4px;
+  padding: 8px;
+  background: var(--paper-deep);
+  color: var(--ink);
+  font: 400 12px/1.5 var(--font-body);
+  text-align: center;
+}
+
+.galleryFallback button {
+  min-height: 44px;
+  padding-inline: 12px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}

@@ -1,48 +1,70 @@
 "use client";
 
 import Image, { type ImageProps } from "next/image";
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useCallback, useState, type CSSProperties } from "react";
 import styles from "./media-fallback.module.css";
 
-// One observer serves the archive, including large couple galleries.
-const awaitingVisibility = new Map<Element, () => void>();
-let visibilityObserver: IntersectionObserver | undefined;
-function whenNear(element: Element, start: () => void) {
-  visibilityObserver ??= new IntersectionObserver(entries => entries.forEach(entry => {
-    if (entry.isIntersecting) { awaitingVisibility.get(entry.target)?.(); awaitingVisibility.delete(entry.target); visibilityObserver?.unobserve(entry.target); }
-  }), { rootMargin: "200px" });
-  awaitingVisibility.set(element, start); visibilityObserver.observe(element);
-  return () => { awaitingVisibility.delete(element); visibilityObserver?.unobserve(element); };
-}
+type ResilientImageProps = ImageProps & {
+  /** Enable only in a positioned gallery figure, outside links and buttons. */
+  retryOnError?: boolean;
+};
 
-function ImageResource({ alt, style, className = "", onLoad, onError, ...props }: ImageProps) {
-  const [state, setState] = useState<"pending" | "ready" | "slow" | "failed">("pending");
-  const image = useRef<HTMLImageElement>(null);
-  useEffect(() => {
-    if (state !== "pending" || !image.current) return;
-    const element = image.current;
-    if (element.complete && element.naturalWidth > 0) { setState("ready"); return; }
-    let timer: ReturnType<typeof setTimeout> | undefined;
-    const stop = whenNear(element, () => { timer = setTimeout(() => setState("slow"), 12000); });
-    return () => { stop(); clearTimeout(timer); };
-  }, [state]);
+function ImageResource({ alt, style, className = "", onLoad, onError, retryOnError, ...props }: ResilientImageProps) {
+  const [state, setState] = useState<"pending" | "ready" | "failed">("pending");
+  const [retried, setRetried] = useState(false);
+  // Next reassigns img.src when its error-handler ref changes.
+  const handleError = useCallback<NonNullable<ImageProps["onError"]>>(event => {
+    setState("failed");
+    onError?.(event);
+  }, [onError]);
+  const source = typeof props.src === "string" ? props.src : "";
+  // Archive WebPs are prepared offline. Keep Next optimization for other assets.
+  const isArchiveWebP = /^\/drive-media\/[^?#]+\.webp$/.test(source);
+  // YouTube already serves the approved poster in web-ready variants.
+  const isYouTubePoster = /^https:\/\/i\.ytimg\.com\/vi\/[\w-]{11}\/(?:hq|maxres)default\.jpg$/.test(source);
+  const hasRecovery = retryOnError && isArchiveWebP;
+  const failed = state === "failed";
 
-  if (state === "failed" || state === "slow") {
+  if (failed && !hasRecovery) {
     const ratio = style?.aspectRatio ?? (props.width && props.height ? `${props.width} / ${props.height}` : "3 / 2");
     const dimensions: CSSProperties = props.fill
       ? { position: "absolute", inset: 0, width: "100%", height: "100%" }
       : { width: "100%", aspectRatio: ratio };
-    return <div className={`${className} ${styles.fallback}`} style={{ ...style, ...dimensions }} role={alt ? "img" : undefined} aria-label={alt ? `${alt}. ${state === "slow" ? "Photograph is taking longer to load." : "Photograph unavailable."}` : undefined} aria-hidden={!alt || undefined} data-media-state={state}>
-      <span>{state === "slow" ? "Photograph is taking longer to load" : "Photograph unavailable"}</span>
+    return <div className={`${className} ${styles.fallback}`} style={{ ...style, ...dimensions }}
+      role={alt ? "img" : undefined} aria-label={alt ? `${alt}. Photograph unavailable.` : undefined}
+      aria-hidden={!alt || undefined} data-media-state="failed">
+      <span>Photograph unavailable</span>
     </div>;
   }
-  return <Image {...props} ref={image} alt={alt} className={className} style={{ backgroundColor: state === "pending" ? "var(--paper-deep)" : undefined, ...style }} data-media-state={state}
-    onLoad={event => { setState("ready"); onLoad?.(event); }}
-    onError={event => { setState("failed"); onError?.(event); }} />;
+
+  return <>
+    <Image {...props}
+      src={retried ? `${source}?retry=1` : props.src}
+      priority={!retried && props.priority}
+      loading={retried ? "eager" : props.loading}
+      unoptimized={isArchiveWebP || isYouTubePoster || props.unoptimized}
+      alt={alt} className={className}
+      style={{
+        backgroundColor: state === "pending" ? "var(--paper-deep)" : undefined,
+        ...style,
+        visibility: failed ? "hidden" : style?.visibility,
+      }}
+      data-media-state={failed ? undefined : state}
+      onLoad={event => { setState("ready"); onLoad?.(event); }}
+      onError={handleError} />
+    {failed && <div className={styles.galleryFallback} data-media-state="failed">
+      <p role="status"><span className="sr-only">{alt}. </span>Photograph unavailable</p>
+      {!retried && <button type="button" aria-label={alt ? `Retry loading ${alt}` : "Retry photograph"}
+        onClick={event => {
+          event.currentTarget.closest("figure")?.focus({ preventScroll: true });
+          setRetried(true);
+          setState("pending");
+        }}>Try again</button>}
+    </div>}
+  </>;
 }
 
-/** A source change gets a fresh load state. No automatic retries or substitute photos. */
-export function ResilientImage(props: ImageProps) {
+export function ResilientImage(props: ResilientImageProps) {
   const key = typeof props.src === "string" ? props.src : "src" in props.src ? props.src.src : props.src.default.src;
   return <ImageResource key={key} {...props} />;
 }

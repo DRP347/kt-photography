@@ -2,7 +2,10 @@
 
 import { useEffect, useRef } from "react";
 
-/** Gestures choose an item; they never translate the content or handle vertical scrolling. */
+const interactive = "a,button,input,textarea,select,label,summary,[role=button],[role=link],[contenteditable]:not([contenteditable=false])";
+const startsOnControl = (target: EventTarget | null) => target instanceof Element && Boolean(target.closest(interactive));
+
+/** Select adjacent items while keeping the stage in place. */
 export function useStationaryGestures(active: number, count: number, select: (index: number) => void) {
   const surface = useRef<HTMLDivElement>(null);
   const current = useRef({ active, count, select });
@@ -11,23 +14,32 @@ export function useStationaryGestures(active: number, count: number, select: (in
   useEffect(() => {
     const node = surface.current;
     if (!node) return;
+
     let pointer: { id: number; x: number; y: number; horizontal: boolean } | null = null;
-    let suppressClick = false;
-    let wheelTime = 0, wheelDistance = 0, wheelDirection = 0, wheelUsed = false;
-    const choose = (direction: number) => {
-      const { active, count, select } = current.current;
-      select(Math.max(0, Math.min(count - 1, active + direction)));
+    let wheelTime = -Infinity;
+    let wheelDistance = 0;
+    let wheelDirection = 0;
+    let wheelUsed = false;
+
+    const canChoose = (direction: number) => {
+      const { active, count } = current.current;
+      return active + direction >= 0 && active + direction < count;
     };
+    const choose = (direction: number) => {
+      if (canChoose(direction)) current.current.select(current.current.active + direction);
+    };
+
     const down = (event: PointerEvent) => {
-      if (!event.isPrimary || event.button !== 0 || (event.target instanceof Element && event.target.closest("a,button,input,textarea,select,[contenteditable=true]"))) return;
+      if (!event.isPrimary || event.button !== 0 || startsOnControl(event.target)) return;
       pointer = { id: event.pointerId, x: event.clientX, y: event.clientY, horizontal: false };
-      suppressClick = false;
     };
     const move = (event: PointerEvent) => {
-      if (!pointer || event.pointerId !== pointer.id) return;
-      const x = event.clientX - pointer.x, y = event.clientY - pointer.y;
-      if (!pointer.horizontal && Math.abs(y) > 12 && Math.abs(y) >= Math.abs(x)) { pointer = null; return; }
-      if (Math.abs(x) > 12 && Math.abs(x) > Math.abs(y) * 1.5) {
+      if (!pointer || event.pointerId !== pointer.id || pointer.horizontal) return;
+      const x = Math.abs(event.clientX - pointer.x);
+      const y = Math.abs(event.clientY - pointer.y);
+      if (y >= 8 && y >= x) {
+        pointer = null;
+      } else if (x >= 8 && x > y * 1.2) {
         pointer.horizontal = true;
         node.setPointerCapture(event.pointerId);
         node.dataset.dragging = "true";
@@ -36,47 +48,69 @@ export function useStationaryGestures(active: number, count: number, select: (in
     };
     const finish = (event: PointerEvent) => {
       if (!pointer || pointer.id !== event.pointerId) return;
-      const x = event.clientX - pointer.x, y = event.clientY - pointer.y;
-      if (event.type === "pointerup" && Math.abs(x) >= 48 && Math.abs(x) > Math.abs(y) * 1.5) {
-        choose(x < 0 ? 1 : -1);
-        suppressClick = true;
-      }
-      if (node.hasPointerCapture(event.pointerId)) node.releasePointerCapture(event.pointerId);
+      const x = event.clientX - pointer.x;
+      const y = event.clientY - pointer.y;
       pointer = null;
       delete node.dataset.dragging;
+      if (node.hasPointerCapture(event.pointerId)) node.releasePointerCapture(event.pointerId);
+      if (event.type === "pointerup" && Math.abs(x) >= 24 && Math.abs(x) > Math.abs(y) * 1.2) {
+        choose(x < 0 ? 1 : -1);
+      }
     };
-    const click = (event: MouseEvent) => {
-      if (!suppressClick) return;
-      suppressClick = false;
-      event.preventDefault(); event.stopPropagation();
+    const lostCapture = (event: PointerEvent) => {
+      // Touch first captures on the child. Its event bubbles when capture moves to the stage.
+      if (event.target === node) finish(event);
+    };
+    const leave = (event: PointerEvent) => {
+      if (!pointer?.horizontal) finish(event);
+    };
+    const drag = (event: DragEvent) => {
+      if (pointer && !startsOnControl(event.target)) event.preventDefault();
     };
     const wheel = (event: WheelEvent) => {
-      if (event.ctrlKey) return;
-      const horizontal = event.shiftKey && !event.deltaX ? event.deltaY : event.deltaX;
-      if (!horizontal || (!event.shiftKey && Math.abs(horizontal) < Math.abs(event.deltaY) * 1.3)) return;
-      // Only a horizontal gesture is consumed, including at either end of the sequence.
-      if (event.cancelable) event.preventDefault();
+      if (event.ctrlKey || event.metaKey) return;
       const unit = event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? node.clientWidth : 1;
-      const distance = horizontal * unit, direction = Math.sign(distance), now = performance.now();
-      if (now - wheelTime > 180 || (direction !== wheelDirection && Math.abs(distance) > 8)) {
-        wheelDistance = 0; wheelUsed = false;
+      const shifted = event.shiftKey && event.deltaX === 0;
+      const distance = (shifted ? event.deltaY : event.deltaX) * unit;
+      const vertical = shifted ? 0 : event.deltaY * unit;
+      if (Math.abs(distance) <= Math.abs(vertical) * 1.35) return;
+
+      const direction = Math.sign(distance);
+      const now = performance.now();
+      if (now - wheelTime > 150 || (direction !== wheelDirection && Math.abs(distance) >= 6)) {
+        wheelDistance = 0;
+        wheelUsed = false;
+        wheelDirection = direction;
       }
       wheelTime = now;
-      if (Math.abs(distance) > 8 || !wheelDirection) wheelDirection = direction;
+      if (!canChoose(direction) || direction !== wheelDirection) return;
+      if (event.cancelable) event.preventDefault();
       if (wheelUsed) return;
-      wheelDistance += distance;
-      if (Math.abs(wheelDistance) >= 64) { choose(Math.sign(wheelDistance)); wheelUsed = true; }
+      wheelDistance += Math.abs(distance);
+      if (wheelDistance >= 28) {
+        wheelUsed = true;
+        choose(direction);
+      }
     };
+
     node.addEventListener("pointerdown", down);
     node.addEventListener("pointermove", move);
     node.addEventListener("pointerup", finish);
     node.addEventListener("pointercancel", finish);
-    node.addEventListener("click", click, true);
+    node.addEventListener("lostpointercapture", lostCapture);
+    node.addEventListener("pointerleave", leave);
+    node.addEventListener("dragstart", drag);
     node.addEventListener("wheel", wheel, { passive: false });
     return () => {
-      node.removeEventListener("pointerdown", down); node.removeEventListener("pointermove", move);
-      node.removeEventListener("pointerup", finish); node.removeEventListener("pointercancel", finish);
-      node.removeEventListener("click", click, true); node.removeEventListener("wheel", wheel);
+      node.removeEventListener("pointerdown", down);
+      node.removeEventListener("pointermove", move);
+      node.removeEventListener("pointerup", finish);
+      node.removeEventListener("pointercancel", finish);
+      node.removeEventListener("lostpointercapture", lostCapture);
+      node.removeEventListener("pointerleave", leave);
+      node.removeEventListener("dragstart", drag);
+      node.removeEventListener("wheel", wheel);
+      delete node.dataset.dragging;
     };
   }, []);
   return surface;

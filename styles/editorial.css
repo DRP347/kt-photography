@@ -544,6 +544,7 @@ input[aria-invalid="true"] { border-color: #9b321f; }
 .couple-story > .story-film,
 .couple-story > .story-tools,
 .couple-story > .story-pagination { width: min(1480px, 86%); }
+.couple-story .story-photographs figure { position: relative; }
 .couple-story .story-opening { width: 100%; margin-inline: auto; grid-template-columns: minmax(0,1fr); }
 .couple-story .story-opening--pair { grid-template-columns: repeat(2,minmax(0,1fr)); }
 .couple-story .story-opening .archive-photo { height: auto; width: 100%; max-width: 100%; margin-inline: auto; }
