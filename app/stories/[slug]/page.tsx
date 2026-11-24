@@ -49,10 +49,18 @@ function imageRatio(image: StoryImage) {
   return (image.width ?? (image.orientation === "portrait" ? 1200 : 1800)) / (image.height ?? (image.orientation === "portrait" ? 1800 : 1200));
 }
 
-// Choose row breaks for the whole event so the final photos can share a row
-// with their neighbors without moving out of sequence.
-function albumRows(images: StoryImage[]) {
+// Plan the complete album in source order. Prefer event boundaries, but allow
+// an adjacent event to share a row if that avoids a narrow or oversized row.
+function albumRows(chapters: { images: StoryImage[] }[]) {
+  const images = chapters.flatMap(chapter => chapter.images);
   if (images.length <= 1) return images.length ? [images] : [];
+
+  const boundaries = new Set<number>();
+  let offset = 0;
+  for (const chapter of chapters) {
+    offset += chapter.images.length;
+    boundaries.add(offset);
+  }
 
   const ratios = images.map(imageRatio);
   const costs = Array<number>(images.length + 1).fill(Infinity);
@@ -61,12 +69,15 @@ function albumRows(images: StoryImage[]) {
 
   for (let start = images.length - 2; start >= 0; start--) {
     let ratio = ratios[start];
+    let crossedBoundaries = 0;
     for (let end = start + 1; end < Math.min(start + 5, images.length); end++) {
+      if (boundaries.has(end)) crossedBoundaries++;
       ratio += ratios[end];
       const size = end - start + 1;
-      // A ratio near 2.9 keeps the row at roughly one third of the rail's width.
-      // Favor smaller groups when equally balanced, with room for five portraits.
-      const cost = (2.9 / ratio - 1) ** 2 + (size === 5 ? 0.035 : 0) + costs[end + 1];
+      const cost = (2.9 / ratio - 1) ** 2
+        + (size === 5 ? 0.035 : 0)
+        + crossedBoundaries * 0.08
+        + costs[end + 1];
       if (cost < costs[start]) {
         costs[start] = cost;
         sizes[start] = size;
@@ -75,8 +86,11 @@ function albumRows(images: StoryImage[]) {
   }
 
   const rows: StoryImage[][] = [];
-  for (let start = 0; start < images.length; start += sizes[start]) {
-    rows.push(images.slice(start, start + sizes[start]));
+  for (let start = 0; start < images.length; ) {
+    // Positive row size is guaranteed for any album with at least two images.
+    const size = sizes[start] || images.length - start;
+    rows.push(images.slice(start, start + size));
+    start += size;
   }
   return rows;
 }
@@ -106,20 +120,17 @@ export default async function StoryPage({ params }: StoryPageProps) {
     <StoryOpening paired={openingImages.length === 2}>
       {openingImages.map(image => <figure key={image.src} tabIndex={-1}><ArchivePhoto image={image} retryOnError priority sizes={openingImages.length === 2 ? "(max-width:700px) 92vw, 44vw" : "(max-width:1700px) 88vw, 1480px"} /></figure>)}
     </StoryOpening>
-    <div className="story-album">{chapters.map(chapter => <div key={chapter.id} className="story-group">
-
-      {albumRows(chapter.images).map((row, rowIndex) => {
+    <div className="story-album"><div className="story-group">
+      {albumRows(chapters).map(row => {
         const ratios = row.map(imageRatio);
         const layout = {
           "--album-columns": ratios.map(ratio => `minmax(0, ${ratio}fr)`).join(" "),
-          "--album-row-ratio": ratios.reduce((sum, ratio) => sum + ratio, 0),
-          "--album-horizontal-gaps": `${(row.length - 1) * 4}px`,
         } as CSSProperties;
-        return <div className="album-row album-row--compact" key={rowIndex} style={layout}>
-          {row.map(image => <figure key={image.src} tabIndex={-1}><ArchivePhoto image={image} retryOnError sizes="(max-width: 700px) 92vw, (max-width: 1100px) 44vw, 500px" /></figure>)}
+        return <div className="album-row album-row--compact" key={row[0].src} style={layout}>
+          {row.map(image => <figure key={image.src} tabIndex={-1}><ArchivePhoto image={image} retryOnError sizes="(max-width: 700px) calc(100vw - 32px), (max-width: 1700px) 65vw, 1000px" /></figure>)}
         </div>;
       })}
-    </div>)}</div>
+    </div></div>
     </div>
     {film && <section className="story-film site-rail" aria-label={`${story.coupleName} film`}><StoryFilmTile title={`${story.coupleName} ${film.title}`} poster={film.poster} videoSrc={film.localVideoUrl} youtubeUrl={film.youtubeUrl} /></section>}
     <div className="story-tools site-rail"><Link className="text-link" href="/stories">Back to stories</Link><StoryShareButton title={`${story.coupleName} wedding story by KT Photography`} /></div>
