@@ -1,0 +1,187 @@
+name: KT responsive QA
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: kt-qa-${{ github.ref }}-${{ github.workflow }}
+  cancel-in-progress: true
+jobs:
+  browser:
+    if: github.event_name == 'workflow_dispatch' || github.head_ref == 'fix/gallery-and-memory-wall'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { browser: chromium, width: 320, height: 568, motion: reduce }
+          - { browser: chromium, width: 390, height: 844, motion: no-preference }
+          - { browser: chromium, width: 768, height: 1024, motion: no-preference }
+          - { browser: chromium, width: 1366, height: 768, motion: no-preference }
+          - { browser: chromium, width: 1920, height: 1080, motion: no-preference }
+          - { browser: chromium, width: 2560, height: 1440, motion: no-preference }
+          - { browser: firefox, width: 1440, height: 900, motion: no-preference }
+          - { browser: webkit, width: 390, height: 844, motion: no-preference }
+    env:
+      NEXT_TELEMETRY_DISABLED: '1'
+      BROWSER: ${{ matrix.browser }}
+      WIDTH: ${{ matrix.width }}
+      HEIGHT: ${{ matrix.height }}
+      MOTION: ${{ matrix.motion }}
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Build checked-out commit
+        run: |
+          npm ci
+          npm run typecheck
+          npm run build
+      - name: Install browser test runner
+        run: |
+          python3 -m venv /tmp/kt-qa-env
+          /tmp/kt-qa-env/bin/pip install playwright==1.51.0
+          /tmp/kt-qa-env/bin/python -m playwright install --with-deps "$BROWSER"
+      - name: Start local production build
+        run: |
+          mkdir -p qa-results
+          npm run start -- --hostname 127.0.0.1 --port 3000 > qa-results/server.log 2>&1 &
+          for i in $(seq 1 60); do
+            if curl -fsS -o /dev/null http://127.0.0.1:3000/; then exit 0; fi
+            sleep 2
+          done
+          cat qa-results/server.log
+          exit 1
+      - name: Test routes and capture screenshots
+        run: |
+          /tmp/kt-qa-env/bin/python - <<'PY'
+          import json, os, re, subprocess, xml.etree.ElementTree as ET
+          from pathlib import Path
+          from urllib.parse import urlsplit
+          from playwright.sync_api import sync_playwright
+
+          base = "http://127.0.0.1:3000"
+          width, height = int(os.environ["WIDTH"]), int(os.environ["HEIGHT"])
+          out = Path("qa-results")
+          out.mkdir(exist_ok=True)
+          failures = []
+          report = []
+          def fail(route, message):
+              failures.append({"route": route, "error": message})
+
+          with sync_playwright() as p:
+              browser = getattr(p, os.environ["BROWSER"]).launch()
+              ctx = browser.new_context(viewport={"width":width,"height":height},
+                    reduced_motion=os.environ["MOTION"], device_scale_factor=1)
+              page = ctx.new_page()
+              page.set_default_timeout(12000)
+              xml = ET.fromstring(ctx.request.get(base+"/sitemap.xml").text())
+              routes = list(dict.fromkeys(["/","/stories","/films","/about","/testimonials","/check-date","/contact","/events","/experience","/terms","/privacy","/cookies"] + [urlsplit(n.text).path for n in xml.findall(".//{*}loc") if n.text]))
+              story_routes = [r for r in routes if r.startswith("/stories/")]
+              if len(story_routes) != 10:
+                  fail("sitemap", f"Expected 10 couple stories, discovered {len(story_routes)}")
+              for route in routes:
+                  errors = []
+                  listener = lambda e: errors.append(str(e))
+                  page.on("pageerror", listener)
+                  name = route.strip("/").replace("/","--") or "home"
+                  try:
+                      response = page.goto(base+route, wait_until="domcontentloaded", timeout=30000)
+                      if not response or response.status >= 400:
+                          fail(route, "Route request failed")
+                          continue
+                      page.wait_for_timeout(500)
+                      page.evaluate("document.fonts.ready")
+                      page.screenshot(path=str(out/(name+"--top.png")),timeout=20000)
+                      if page.evaluate("document.documentElement.scrollWidth > innerWidth + 2"):
+                          fail(route,"Horizontal document overflow")
+                      if route.startswith("/stories/"):
+                          rows = page.locator(".album-row--compact").evaluate_all("""rows => rows.map(row => {
+                              const a=row.getBoundingClientRect(), b=row.closest('.story-photographs').getBoundingClientRect();
+                              return {left:Math.abs(a.left-b.left), right:Math.abs(a.right-b.right), width:a.width};
+                          })""")
+                          if not rows:
+                              fail(route,"No gallery rows found")
+                          if any(r["left"]>2 or r["right"]>2 for r in rows):
+                              fail(route,"Gallery row edges differ from the shared rail")
+                      # Scroll gradually to activate lazy media and section transitions.
+                      seen = set()
+                      for i in range(150):
+                          pos = page.evaluate("({y:scrollY,max:Math.max(0,document.documentElement.scrollHeight-innerHeight)})")
+                          key = round(pos["y"])
+                          if key in seen or pos["y"] >= pos["max"]-2:
+                              break
+                          seen.add(key)
+                          page.evaluate("window.scrollBy(0, Math.max(240, innerHeight * .8))")
+                          page.wait_for_timeout(110)
+                      # Wait briefly for visible media and record failures, not just network requests.
+                      page.wait_for_timeout(500)
+                      broken = page.locator('main [data-media-state="failed"]').count()
+                      if broken:
+                          fail(route,f"{broken} media fallback(s) displayed")
+                      page.screenshot(path=str(out/(name+"--bottom.png")),timeout=20000)
+                      if route.startswith("/stories/"):
+                          total = page.locator(".album-row--compact").count()
+                          for label, idx in [("first",0),("middle",total//2),("last",total-1)]:
+                              if total:
+                                  row = page.locator(".album-row--compact").nth(idx)
+                                  row.scroll_into_view_if_needed()
+                                  page.wait_for_timeout(300)
+                                  page.screenshot(path=str(out/(name+"--gallery-"+label+".png")),timeout=20000)
+                      if route == "/":
+                          wall = page.locator(".memory-wall")
+                          wall.scroll_into_view_if_needed()
+                          page.wait_for_timeout(1000)
+                          wall.screenshot(path=str(out/"home--memory-wall.png"),timeout=20000)
+                          visible = wall.locator(".memory-wall__tile:visible").count()
+                          if visible != (8 if width <= 700 else 14):
+                              fail(route,f"Unexpected visible Memory Wall tile count: {visible}")
+                          for selector, label in [("#our-stories","stories"),("#home-film","film"),('[data-home-layer="testimonials"]',"testimonials"),('[data-home-layer="about"]',"about")]:
+                              loc=page.locator(selector)
+                              if loc.count():
+                                  loc.first.scroll_into_view_if_needed()
+                                  page.wait_for_timeout(600)
+                                  page.screenshot(path=str(out/("home--"+label+".png")),timeout=20000)
+                          page.evaluate("window.scrollTo(0,0)")
+                          page.wait_for_timeout(700)
+                          trigger=page.locator(".floating-menu-button")
+                          if trigger.is_visible():
+                              trigger.click()
+                              if trigger.get_attribute("aria-expanded") != "true":
+                                  fail(route,"Mobile menu did not open")
+                              page.screenshot(path=str(out/"home--mobile-menu.png"),timeout=20000)
+                              page.keyboard.press("Escape")
+                              page.wait_for_timeout(300)
+                              if trigger.get_attribute("aria-expanded") != "false":
+                                  fail(route,"Mobile menu did not close on Escape")
+                      report.append({"route":route,"pageErrors":errors,"mediaFallbacks":broken})
+                      for error in errors:
+                          fail(route,error)
+                  except Exception as exc:
+                      fail(route,str(exc))
+                  finally:
+                      page.remove_listener("pageerror", listener)
+              browser.close()
+          result={"commit":subprocess.check_output(["git","rev-parse","HEAD"],text=True).strip(),"browser":os.environ["BROWSER"],"viewport":[width,height],"reducedMotion":os.environ["MOTION"],"routes":report,"failures":failures}
+          (out/"report.json").write_text(json.dumps(result,indent=2))
+          print(json.dumps(result,indent=2))
+          if failures:
+              raise SystemExit(1)
+          PY
+      - name: Upload screenshot evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: kt-qa-${{ matrix.browser }}-${{ matrix.width }}-${{ matrix.height }}
+          path: qa-results/
+          retention-days: 7
+          if-no-files-found: warn
