@@ -91,23 +91,23 @@ h3 { font-size: var(--couple); }
 /* Deliberate cream cells complete the five-column, three-row composition. */
 .memory-wall { display: grid; grid-template-columns: repeat(5, minmax(0,1fr)); grid-template-rows: repeat(3, minmax(0,1fr)); gap: 0; margin-top: var(--media-seam); aspect-ratio: 5 / 3; background: var(--paper); }
 .memory-wall__tile { position: relative; min-height: 0; overflow: hidden; }
-.memory-wall__tile img { object-fit: cover; }
+.memory-wall__tile img { object-fit: cover; object-position: var(--memory-focus, 50% 30%); }
 .memory-wall__tile--red { grid-area: 1/3/2/4; }
-.memory-wall__tile--red img { object-position: 50% 45%; }
+.memory-wall__tile--red { --memory-focus: 50% 25%; }
 .memory-wall__tile--ceremony { grid-area: 1/5/2/6; }
-.memory-wall__tile--ceremony img { object-position: 50% 52%; }
+.memory-wall__tile--ceremony { --memory-focus: 50% 35%; }
 .memory-wall__tile--celebration { grid-area: 2/1/3/2; }
-.memory-wall__tile--celebration img { object-position: 50% 50%; }
+.memory-wall__tile--celebration { --memory-focus: 50% 50%; }
 .memory-wall__tile--ritual { grid-area: 2/2/3/3; }
-.memory-wall__tile--ritual img { object-position: 50% 45%; }
+.memory-wall__tile--ritual { --memory-focus: 50% 30%; }
 .memory-wall__tile--left { grid-area: 2/4/3/5; }
-.memory-wall__tile--left img { object-position: 50% 72%; }
+.memory-wall__tile--left { --memory-focus: 50% 15%; }
 .memory-wall__tile--right { grid-area: 3/2/4/3; }
-.memory-wall__tile--right img { object-position: 50% 48%; }
+.memory-wall__tile--right { --memory-focus: 50% 42%; }
 .memory-wall__tile--coast { grid-area: 3/3/4/4; }
-.memory-wall__tile--coast img { object-position: 50% 55%; }
+.memory-wall__tile--coast { --memory-focus: 50% 25%; }
 .memory-wall__tile--smile { grid-area: 3/4/4/5; }
-.memory-wall__tile--smile img { object-position: 35% 40%; }
+.memory-wall__tile--smile { --memory-focus: 35% 22%; }
 .memory-wall__mark { grid-area: 2/3/3/4; display: grid; place-items: center; }
 .memory-wall__mark img { width: 58%; height: auto; }
 
@@ -505,12 +505,12 @@ input[aria-invalid="true"] { border-color: #9b321f; }
 .selected-stories .home-story .archive-photo { object-fit: cover; }
 .selected-stories .home-story__caption { padding-block: 12px 6px; }
 .selected-stories .home-story__caption h3 { font-size: clamp(22px, 2.1vw, 34px); letter-spacing: .035em; }
-.memory-wall__tile--fill-one { grid-area: 1/1/2/2; }
-.memory-wall__tile--fill-two { grid-area: 1/2/2/3; }
-.memory-wall__tile--fill-three { grid-area: 1/4/2/5; }
-.memory-wall__tile--fill-four { grid-area: 2/5/3/6; }
-.memory-wall__tile--fill-five { grid-area: 3/1/4/2; }
-.memory-wall__tile--fill-six { grid-area: 3/5/4/6; }
+.memory-wall__tile--fill-one { grid-area: 1/1/2/2; --memory-focus: 50% 5%; }
+.memory-wall__tile--fill-two { grid-area: 1/2/2/3; --memory-focus: 50% 0%; }
+.memory-wall__tile--fill-three { grid-area: 1/4/2/5; --memory-focus: 50% 20%; }
+.memory-wall__tile--fill-four { grid-area: 2/5/3/6; --memory-focus: 50% 43%; }
+.memory-wall__tile--fill-five { grid-area: 3/1/4/2; --memory-focus: 50% 0%; }
+.memory-wall__tile--fill-six { grid-area: 3/5/4/6; --memory-focus: 50% 15%; }
 @media (min-width: 1101px) {
   .home-hero .swipe-carousel__photograph { height: min(46vw, calc(100svh - var(--measured-header, var(--header-height)) - 52px), 760px); }
 }
@@ -551,8 +551,8 @@ input[aria-invalid="true"] { border-color: #9b321f; }
 .couple-story .story-album { margin-top: 4px; }
 .couple-story .story-group { margin-top: 4px; }
 .couple-story .album-row--compact {
-  /* A short event can have a centered row. Cap its height instead of stretching portraits. */
-  width: min(100%, calc(var(--album-row-ratio) * min(46.5%, 580px) + var(--album-horizontal-gaps)));
+  /* Every album row shares the story rail; proportional columns preserve source ratios. */
+  width: 100%;
   grid-template-columns: var(--album-columns);
   gap: 4px;
   margin: 4px auto 0;
@@ -570,7 +570,7 @@ input[aria-invalid="true"] { border-color: #9b321f; }
   .couple-story .album-row--compact { width: 100%; grid-template-columns: minmax(0, 1fr); }
   .couple-story .story-opening--pair { grid-template-columns: 1fr; }
   .couple-story .story-opening .archive-photo { max-height: 78svh; object-fit: contain; }
-  .couple-story .album-row--compact .archive-photo { max-height: 78svh; width: auto; max-width: 100%; margin-inline: auto; }
+  .couple-story .album-row--compact .archive-photo { width: 100%; height: auto; max-width: 100%; }
 }
 
 @media (min-width: 1001px) {

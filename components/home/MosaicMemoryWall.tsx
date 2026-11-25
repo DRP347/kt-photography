@@ -6,7 +6,7 @@ const tiles = [
   ["fill-one", "/Ceremonies/hero-mosaic/monika-aman-haldi-laughter-1.jpg", "Aman and Monika laughing during haldi"],
   ["fill-two", "/Ceremonies/hero-mosaic/gaurav-dhwani-boat-00767.jpg", "Gaurav and Dhwani together on a boat"],
   ["fill-three", "/Ceremonies/hero-mosaic/khushali-akshay-bw-close-4843.jpg", "Khushali and Akshay in a close wedding portrait"],
-  ["fill-four", "/Ceremonies/hero-mosaic/monika-aman-red-detail-1296.jpg", "Red wedding attire and embroidered details"],
+  ["fill-four", "/drive-media/monika-aman/wedding/monika-aman-wedding-917.webp", "Aman and Monika during their wedding"],
   ["fill-five", "/Ceremonies/hero-mosaic/amrith-chetali-sangeet-01.jpg", "Amrith and Chetali together on the stairs"],
   ["fill-six", "/Ceremonies/hero-mosaic/khushali-akshay-haldi-embrace-18.jpg", "A joyful embrace during haldi"],
   ["red", "/drive-media/aamir-binish/wedding/aamir-binish-wedding-103.webp", "Aamir and Binish together in wedding attire"],
