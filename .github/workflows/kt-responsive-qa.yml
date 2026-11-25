@@ -12,7 +12,7 @@ concurrency:
 jobs:
   browser:
     if: github.event_name == 'workflow_dispatch' || github.head_ref == 'fix/gallery-and-memory-wall'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 30
     strategy:
       fail-fast: false
@@ -45,7 +45,11 @@ jobs:
         run: |
           npm ci
           npm run typecheck
-          npm run build
+          for attempt in 1 2 3; do
+            if npm run build; then exit 0; fi
+            if [ "$attempt" = 3 ]; then exit 1; fi
+            sleep 8
+          done
       - name: Install browser test runner
         run: |
           python3 -m venv /tmp/kt-qa-env
@@ -145,7 +149,7 @@ jobs:
                           visible = wall.locator(".memory-wall__tile:visible").count()
                           if visible != (8 if width <= 700 else 14):
                               fail(route,f"Unexpected visible Memory Wall tile count: {visible}")
-                          for selector, label in [("#our-stories","stories"),("#home-film","film"),('[data-home-layer="testimonials"]',"testimonials"),('[data-home-layer="about"]',"about")]:
+                          for selector, label in [("#our-stories","stories"),("#home-film","film"),('[data-editorial-layer="testimonials"]',"testimonials"),('[data-editorial-layer="about"]',"about")]:
                               loc=page.locator(selector)
                               if loc.count():
                                   loc.first.scroll_into_view_if_needed()
